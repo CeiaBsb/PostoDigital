@@ -1,0 +1,18 @@
+<div class="preenchimento"></div>
+<mat-spinner diameter="40" *ngIf="carregando"></mat-spinner>
+<div *ngIf="!carregando">
+	<mat-form-field class="filtroBusca">
+		<input matInput placeholder="Filtrar pelo nome" #busca/>
+	</mat-form-field>
+	<button mat-raised-button (click)="atualizarVisiveis(busca.value)" color="primary" class="sideButton">Filtrar</button>
+
+	<mat-nav-list>
+		<a mat-list-item routerLink="/detalharUsuario/{{usuario.id}}" *ngFor="let usuario of visiveis">{{usuario.nome}}</a>
+	</mat-nav-list>
+</div>
+<div class="preenchimento"></div>
+<mat-toolbar class="footer">
+	<button mat-icon-button (click)="adicionarUsuario()" color="primary" class="right">Adicionar Usuario
+		<mat-icon>add_circle</mat-icon>
+	</button>
+</mat-toolbar> 

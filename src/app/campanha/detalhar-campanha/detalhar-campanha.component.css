@@ -1,0 +1,15 @@
+
+
+.direita {
+    position: absolute;
+    right: 20px;
+}
+
+.esquerda {
+    position: absolute;
+    left: 20px;
+}
+
+.preenchimento {
+    height: 15px;
+} 

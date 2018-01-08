@@ -1,0 +1,26 @@
+
+ .title {
+	position: relative;
+	top: 30px;
+	left: 60px;
+ }
+
+ .content {
+	position: relative;
+	top: 0px;
+	left: 60px;
+ }
+
+ .spinner-processando {
+	position: relative;
+	top: -60px;
+    left: 0px;
+}
+
+.dialog-container {
+    height: 1px;
+    width: 150px;
+	position: relative;
+	top: -40px;
+    left: 0px;
+}

@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" class="toolbar">
+	<h1  class="app-name">Posto Digital</h1>
+</mat-toolbar>
+
+<div class="espaco-inicial"></div>
+
+<mat-form-field class="full-width">
+	<input matInput placeholder="Usuario" [(ngModel)]="user" />
+</mat-form-field>
+
+<mat-form-field class="full-width">
+	<input matInput placeholder="Senha" type="password" [(ngModel)]="password" />
+</mat-form-field>
+
+<div class="espaco-intermediario"></div>
+
+<button mat-raised-button color="primary" (click)="login()" class="button">Login</button>

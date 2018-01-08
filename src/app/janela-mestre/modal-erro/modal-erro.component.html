@@ -1,0 +1,8 @@
+<div class="dialog-container">
+  <h1 mat-dialog-title class="title">Erro</h1>
+  <div mat-dialog-content class="content">
+    <p>{{getMensagem()}}</p>
+  </div>
+  <mat-icon  class="icone" color="warn">error</mat-icon>
+  <button mat-raised-button (click)="fecharModal()" class="error-button" color="primary">Fechar</button>
+</div>

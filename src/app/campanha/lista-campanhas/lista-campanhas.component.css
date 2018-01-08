@@ -1,0 +1,25 @@
+.sideButton {
+    width: 20%;
+    float: right;
+    position: relative;
+    top: 10px;
+}
+
+.filtroBusca {
+    width: 75%;
+}
+
+.preenchimento {
+    height: 15px;
+}
+
+.right {
+    width: 100%;
+    float: right;
+    text-align: right;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+}

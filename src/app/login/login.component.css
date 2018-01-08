@@ -1,0 +1,31 @@
+.error-message {
+	color: red;
+}
+
+h1.app-name {
+	margin-left: 8px;
+	position: absolute;
+	top: 15px;
+  }
+  
+.toolbar {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.espaco-inicial {
+	height: 90px;
+}
+
+.espaco-intermediario {
+	height: 40px;
+}
+
+.button {
+	float: right;
+}
