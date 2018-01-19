@@ -1,0 +1,63 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="atualizarPessoa()" class="esquerda" color="primary">
+    <mat-icon>check</mat-icon>
+  </button>
+  <div class="direita">
+    <button mat-icon-button (click)="cancelar()" color="primary">
+      <mat-icon>undo</mat-icon>
+    </button>
+    <button mat-icon-button (click)="excluirPessoa()" color="primary">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="preenchimento"></div>
+<mat-spinner diameter="40" *ngIf="!carregado"></mat-spinner>
+<div *ngIf="carregado">
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Nome" [(ngModel)]="pessoa.nome" />
+  </mat-form-field>
+
+  <img *ngIf="pessoa.tem_foto == 'true'" src="{{config.apiBaseUrl}}/img/{{pessoa.id}}_64.jpg" alt="{{pessoa.nome}}">
+  <img *ngIf="pessoa.tem_foto == 'false'" src="{{config.apiBaseUrl}}/img/sem_foto_64.jpg" alt="{{pessoa.nome}}">
+
+  <div>
+    <input type="file" #fileInput placeholder="Atualizar foto" accept=".jpg" class="full-width" />
+    <button mat-raised-button (click)="upload(fileInput)" class="full-width">Atualizar foto</button>
+  </div>
+ 
+  <div class="preenchimento"></div>
+
+  <mat-form-field class="full-width">
+    <input matInput [matDatepicker]="picker" placeholder="Data de nascimento" [(ngModel)]="pessoa.dt_nascimento">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi="true" #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Nome da Mãe" [(ngModel)]="pessoa.nome_mae" />
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Dados atualizados?</mat-label>
+    <mat-select placeholder="Dados atualizados?" [(value)]="pessoa.atualizado">
+      <mat-option value="true">Sim</mat-option>
+      <mat-option value="false">Não</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-expansion-panel class="full-width">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Listas de presença
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="full-width" *ngFor="let folha of folhasRelacionadas">
+      <mat-checkbox [(ngModel)]="folha.relacionado">{{folha.nome}}({{folha.campanha}})</mat-checkbox>
+    </div>
+
+  </mat-expansion-panel>
+
+</div>

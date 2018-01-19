@@ -43,7 +43,7 @@ class AtualizarCampanha extends Rest
 		
 		$connection = mysqli_connect(DBSERVER, DBUSER, DBPASSWORD, DATABASE);
 		if(!$connection)
-			return DetalharCampanha::errorResponse("Erro de acesso ao banco de dados.");
+			return AtualizarCampanha::errorResponse("Erro de acesso ao banco de dados.");
 
 		$query = 
 		"
@@ -57,17 +57,17 @@ class AtualizarCampanha extends Rest
 		";
 		$result = mysqli_query($connection, $query);
 		if(!$result)
-			return DetalharCampanha::errorResponse("Não foi possível realizar a operação.");		
-		else
-		{
-			$responseJson = 
-			array
-			(
-				"type"=>"success",
-				"msg"=>""
-			);
-			return $responseJson;
-		}
+			return AtualizarCampanha::errorResponse("Não foi possível realizar a operação.");		
+		if(mysqli_affected_rows($connection)==0)
+			return AtualizarCampanha::errorResponse("Não existe uma campanha com o id informado.");	
+		
+		$responseJson = 
+		array
+		(
+			"type"=>"success",
+			"msg"=>""
+		);
+		return $responseJson;
 	}
 	
 	static function errorResponse($message)

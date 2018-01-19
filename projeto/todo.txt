@@ -1,1 +1,2 @@
 - em minhasCampanhas devo mostrar apenas as ativas
+- quando o front receber uma resposta 401, deve mostrar a tela de login

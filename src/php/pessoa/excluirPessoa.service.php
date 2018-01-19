@@ -57,6 +57,16 @@ class ExcluirPessoa extends Rest
 			return ExcluirPessoa::errorResponse("Erro ao excluir a pessoa.");
 		else
 		{
+			$original = UPLOAD_DIR . basename($urlParameters[0].'_orig.jpg');
+			if(file_exists($original))
+				unlink($original);
+			$file64 = UPLOAD_DIR . basename($urlParameters[0].'_64.jpg');
+			if(file_exists($file64))
+				unlink($file64);
+			$file300 = UPLOAD_DIR . basename($urlParameters[0].'_300.jpg');
+			if(file_exists($file300))
+				unlink($file300);
+			
 			$responseJson = 
 			array
 			(

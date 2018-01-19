@@ -61,16 +61,16 @@ class AtualizarUsuario extends Rest
 		$result = mysqli_query($connection, $query);
 		if(!$result)
 			return AtualizarUsuario::errorResponse("Não foi possível realizar a operação.");		
-		else
-		{
-			$responseJson = 
-			array
-			(
-				"type"=>"success",
-				"msg"=>""
-			);
-			return $responseJson;
-		}
+		if(mysqli_affected_rows($connection)==0)
+			return AtualizarUsuario::errorResponse("Não existe um usuário com o id informado.");	
+		
+		$responseJson = 
+		array
+		(
+			"type"=>"success",
+			"msg"=>""
+		);
+		return $responseJson;
 	}
 	
 	function campo($parametros, $parametro, $filtro)

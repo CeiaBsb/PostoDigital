@@ -7,6 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Campanha } from './campanha';
 import { AuthenticationService } from '../login/authentication.service';
 import {ConfigurationService} from '../configuration.service';
+import { UtilService } from '../util.service';
 
 @Injectable()
 export class CampanhaService {
@@ -28,7 +29,7 @@ export class CampanhaService {
             } 
           }
         ),
-        catchError( this.handleError<ListarCampanhasResponse>('listarMinhasCampanhas', {type: 'error', msg: '', campanhas: []} ) )
+        catchError( UtilService.handleError<ListarCampanhasResponse>( { type: 'error', msg: 'Erro de conexão com a API.', campanhas: []} ) )
       );
   }
 
@@ -44,7 +45,7 @@ export class CampanhaService {
             } 
           }
         ),
-        catchError( this.handleError<ListarCampanhasResponse>('listarCampanhas', {type: 'error', msg: '', campanhas: []} ) )
+        catchError( UtilService.handleError<ListarCampanhasResponse>( { type: 'error', msg: 'Erro de conexão com a API.', campanhas: []} ) )
       );
   }
 
@@ -59,7 +60,7 @@ export class CampanhaService {
             } 
           }
         ),
-        catchError( this.handleError<DetalharCampanhaResponse>('detalharCampanha', {type: 'error', msg: '',
+        catchError( UtilService.handleError<DetalharCampanhaResponse>( { type: 'error', msg: 'Erro de conexão com a API.',
          campanha: {id: 0, nome: '', status: ''}} ) )
       );
   }
@@ -75,7 +76,7 @@ export class CampanhaService {
             } 
           }
         ),
-        catchError( this.handleError<ModificarCampanhaResponse>('excluirCampanha', {type: 'error', msg: 'Tente novamente'} ) )
+        catchError( UtilService.handleError<ModificarCampanhaResponse>( { type: 'error', msg: 'Erro de conexão com a API.'} ) )
       );
   }
 
@@ -90,7 +91,7 @@ export class CampanhaService {
             } 
           }
         ),
-        catchError( this.handleError<ModificarCampanhaResponse>('atualizarCampanha', {type: 'error', msg: 'Tente novamente'} ) )
+        catchError( UtilService.handleError<ModificarCampanhaResponse>( { type: 'error', msg: 'Erro de conexão com a API.'} ) )
       );
   }
 
@@ -105,20 +106,9 @@ export class CampanhaService {
             } 
           }
         ),
-        catchError( this.handleError<DetalharCampanhaResponse>('adicionarCampanha', {type: 'error', msg: 'Tente novamente', 
+        catchError( UtilService.handleError<DetalharCampanhaResponse>( { type: 'error', msg: 'Erro de conexão com a API.', 
           campanha: {id: 0, nome: '', status: ''}  } ) )
       );
-  }
-  
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-   
-      // mostra o erro no console do browser
-      console.error(error); 
-   
-      // retorna o resultado alternativo
-      return of (result as T);
-    };
   }
 
 }

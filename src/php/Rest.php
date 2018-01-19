@@ -7,6 +7,7 @@ abstract class Rest
 	var $serviceName;
 	static $baseUri;
 	static $headerSent = false;
+	static $helpRequest = false;
 	
 	function init()
 	{
@@ -16,27 +17,39 @@ abstract class Rest
 		{ 		
 			$urlParameters = $this->extractUrlParameters();
 			if(VALIDATE_REST_PARAMETERS)
-				if
-				(
-					(!$this->array_diff_key_recursive($this->getRequestExample(),$request)) || 
-					(!$this->validadeUrlParameters($urlParameters))
-				)
+			{
+				if (!$this->array_diff_key_recursive($this->getRequestExample(),$request))
 				{
-					$this->print_help();
+					$descricao = "Parâmetros JSON de entrada não seguem o padrão esperado";
+					$modelo = json_encode($this->getRequestExample());
+					$entrada = json_encode($request);
+					$this->print_help($descricao, $modelo, $entrada);
 					return true;
 				}
+				if (!$this->validadeUrlParameters($urlParameters))
+				{
+					$descricao = "Parâmetros de entrada na URL não seguem o padrão esperado";
+					$modelo = "Total de ".sizeof($this->getUrlParametersDescription())." parâmetros";
+					$entrada = "Total de ".sizeof($urlParameters)." parâmetros";
+					$this->print_help($descricao, $modelo, $entrada);
+					return true;
+				}
+			}
 			header('Content-Type: application/json;charset=utf-8');
 			$response = $this->call($request,$urlParameters);
 			if(VALIDATE_REST_PARAMETERS)
 				if(!$this->array_diff_key_recursive($this->getResponseExample(),$response))
 				{
-					$this->print_help();
+					$descricao = "Parâmetros de saída não seguem o padrão esperado";
+					$modelo = json_encode($this->getResponseExample());
+					$entrada = json_encode($response);
+					$this->print_help($descricao, $modelo, $entrada);
 					return true;
 				}
 			echo json_encode($response);
 			exit;			
 		} else { 
-			$this->print_help();
+			$this->print_help(null, null, null);
 		} 
 	}
 	
@@ -105,8 +118,9 @@ abstract class Rest
 		$strlenBaseUri = strlen(Rest::$baseUri);
 		if(strpos($_SERVER["REQUEST_URI"],"/help",$strlenBaseUri)==$strlenBaseUri)
 		{
+			Rest::$helpRequest = true;
 			$objInstance = Rest::getServiceInstance($requestMethod,$serviceName,$definitionFile, $className);
-			call_user_func(array($objInstance,"print_help"));
+			call_user_func(array($objInstance,"print_help"), null, null, null);
 			return;
 		}	
 		
@@ -121,15 +135,16 @@ abstract class Rest
 				
 				if(strpos($_SERVER["REQUEST_URI"],"/help",$strlenBaseUri+$strlenServiceName)==$strlenBaseUri+$strlenServiceName)
 				{
+					Rest::$helpRequest = true;
 					$objInstance = Rest::getServiceInstance($requestMethod,$serviceName,$definitionFile, $className);
-					call_user_func(array($objInstance,"print_help"));
+					call_user_func(array($objInstance,"print_help"), null, null, null);
 					return;
 				}				
 				
 				if ($_SERVER['REQUEST_METHOD'] !== $requestMethod)
 					return;	
 		
-				call_user_func(array($objInstance,"init"));
+				call_user_func(array($objInstance,"init"), null, null, null);
 			}
 	}
 	
@@ -143,7 +158,7 @@ abstract class Rest
 		return $objInstance;
 	}
 	
-	function print_help()
+	function print_help($descricao, $modelo, $recebido)
 	{
 		if(!ALLOW_REST_HELP)
 			return;
@@ -166,24 +181,29 @@ abstract class Rest
 		echo "Modelo de requisicao:".json_encode($this->getRequestExample())."<br />\n";
 		echo "Modelo de resposta:".json_encode($this->getResponseExample())."<br />\n";
 		echo "<br />\n<br />\n";
+		if($descricao!=null)
+		{
+			echo "Situação de erro:".$descricao."<br />\n";
+			echo "Modelo esperado:".$modelo."<br />\n";
+			echo "Parâmetros recebidos:".$recebido."<br />\n";
+			exit;
+		}
 	}
 	
 	static function not_found()
 	{
 		if(!ALLOW_REST_HELP)
 			return;
-		//if(!Rest::$headerSent)
-		{
-			Rest::$headerSent = true;
-			header('Content-Type: text/html;charset=utf-8');
-			
-			echo "<strong>Serviço não encontrado</strong><br />\n";
-			echo "Se você está vendo esta mensagem, é porque chamou um serviço inexistente nessa API.<br />\n";
-			echo "Verifique se todos os parâmetros do serviço pretendido estão corretos, como, por exemplo, o método de chamada (POST, GET, etc) e o nome do serviço.<br />\n";
-			echo "Verifique ainda se os parâmetros de chamada do serviço (no JSON ou na URL) estão corretos.<br />\n";
-			echo "Se ainda estiver em dúvida, consulte o help da API em ".BASE_URL."/help";
-		}
-		
+		if(Rest::$helpRequest == true)
+			return;
+
+		Rest::$headerSent = true;
+		header('Content-Type: text/html;charset=utf-8');
+		echo "<strong>Serviço não encontrado</strong><br />\n";
+		echo "Se você está vendo esta mensagem, é porque chamou um serviço inexistente nessa API.<br />\n";
+		echo "Verifique se todos os parâmetros do serviço pretendido estão corretos, como, por exemplo, o método de chamada (POST, GET, etc) e o nome do serviço.<br />\n";
+		echo "Verifique ainda se os parâmetros de chamada do serviço (no JSON ou na URL) estão corretos.<br />\n";
+		echo "Se ainda estiver em dúvida, consulte o help da API em ".BASE_URL."/help";		
 	}
 }
 ?>

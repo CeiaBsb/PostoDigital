@@ -49,8 +49,8 @@ class AdicionarPessoa extends Rest
 		$query = 
 		"
 			insert into 
-				pessoa (nome, atualizado, tem_foto)
-				values ('Nova Pessoa', false, false)			
+				pessoa (nome, atualizado, tem_foto, dt_nascimento)
+				values ('Nova Pessoa', 'false', 'false', CURDATE() )			
 		";
 		$result = mysqli_query($connection, $query);
 		if(!$result)

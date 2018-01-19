@@ -6,7 +6,7 @@ if(ALLOW_CORS)
 {
 	header("Access-Control-Allow-Origin: ".CORS_ORIGIN);
 	header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
-	header("Access-Control-Allow-Headers: Content-Type, JWT");
+	header("Access-Control-Allow-Headers: Content-Type, JWT, enctype");
 	
 	/*esse trecho é necessário porque para certas requisicoes o frontend as vezes
 	manda duas request, sendo a primeira somente para verificar as permissoes.
@@ -34,7 +34,10 @@ Rest::addRoute("POST","/usuario/atualizarCampanhas",'./usuario/atualizarCampanha
 Rest::addRoute("POST","/pessoa/listar",'./pessoa/listarPessoas.service.php',"ListarPessoas");
 Rest::addRoute("GET","/pessoa/detalhar",'./pessoa/detalharPessoa.service.php',"DetalharPessoa");
 Rest::addRoute("GET","/pessoa/excluir",'./pessoa/excluirPessoa.service.php',"ExcluirPessoa");
-/*Rest::addRoute("POST","/pessoa/atualizar",'./pessoa/atualizarPessoa.service.php',"AtualizarPessoa");*/
+Rest::addRoute("POST","/pessoa/atualizar",'./pessoa/atualizarPessoa.service.php',"AtualizarPessoa");
 Rest::addRoute("GET","/pessoa/adicionar",'./pessoa/adicionarPessoa.service.php',"AdicionarPessoa");
+Rest::addRoute("GET","/pessoa/listarFolhasPresenca",'./pessoa/listarFolhasPresenca.service.php',"ListarFolhasPresencaDaPessoa");
+Rest::addRoute("POST","/pessoa/atualizarFolhasPresenca",'./pessoa/atualizarFolhasPresenca.service.php',"AtualizarFolhasPresencaDaPessoa");
+Rest::addRoute("POST","/upload",'./upload.php',"Upload");
 Rest::not_found();
 ?>

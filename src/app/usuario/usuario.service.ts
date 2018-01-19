@@ -3,10 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
-
+ 
 import { Usuario } from './usuario';
 import { AuthenticationService } from '../login/authentication.service';
 import { ConfigurationService } from '../configuration.service';
+import { UtilService } from '../util.service';
 
 @Injectable()
 export class UsuarioService {
@@ -29,7 +30,7 @@ export class UsuarioService {
           }
         }
       ),
-      catchError(this.handleError<ListarUsuariosResponse>('listarUsuarios', { type: 'error', msg: '', usuarios: [] }))
+      catchError(UtilService.handleError<ListarUsuariosResponse>( { type: 'error', msg: 'Erro de conexão com a API.', usuarios: [] }))
       );
   }
 
@@ -45,8 +46,7 @@ export class UsuarioService {
           }
         }
       ),
-      catchError(this.handleError<DetalharUsuarioResponse>('detalharUsuario', {
-        type: 'error', msg: '',
+      catchError(UtilService.handleError<DetalharUsuarioResponse>({ type: 'error', msg: 'Erro de conexão com a API.',
         usuario: { id: 0, nome: '', status: '', login: '', perfil: '', senha: '' }
       }))
       );
@@ -63,7 +63,7 @@ export class UsuarioService {
           }
         }
       ),
-      catchError(this.handleError<ModificarUsuarioResponse>('excluirUsuario', { type: 'error', msg: 'Tente novamente' }))
+      catchError(UtilService.handleError<ModificarUsuarioResponse>({  type: 'error', msg: 'Erro de conexão com a API.' }))
       );
   }
 
@@ -84,7 +84,7 @@ export class UsuarioService {
           }
         }
       ),
-      catchError(this.handleError<ModificarUsuarioResponse>('atualizarUsuario', { type: 'error', msg: 'Tente novamente' }))
+      catchError(UtilService.handleError<ModificarUsuarioResponse>({ type: 'error', msg: 'Erro de conexão com a API.' }))
       );
   }
 
@@ -99,8 +99,8 @@ export class UsuarioService {
           }
         }
       ),
-      catchError(this.handleError<DetalharUsuarioResponse>('adicionarUsuario', {
-        type: 'error', msg: 'Tente novamente',
+      catchError(UtilService.handleError<DetalharUsuarioResponse>( {
+        type: 'error', msg: 'Erro de conexão com a API.',
         usuario: { id: 0, nome: '', status: '', login: '', perfil: '', senha: '' }
       }))
       );
@@ -124,7 +124,7 @@ export class UsuarioService {
           }
         }
       ),
-      catchError(this.handleError<ListaCampanhasResponse>('listarCampanhas', { type: 'error', msg: 'Tente novamente', campanhas: [] }))
+      catchError(UtilService.handleError<ListaCampanhasResponse>( {  type: 'error', msg: 'Erro de conexão com a API.', campanhas: [] }))
       );
   }
 
@@ -145,19 +145,10 @@ export class UsuarioService {
           }
         }
       ),
-      catchError(this.handleError<ModificarUsuarioResponse>('atualizarCampanhas', { type: 'error', msg: 'Tente novamente' }))
+      catchError(UtilService.handleError<ModificarUsuarioResponse>( {  type: 'error', msg: 'Erro de conexão com a API.' }))
       );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // mostra o erro no console do browser
-      console.error(error);
-
-      // retorna o resultado alternativo
-      return of(result as T);
-    };
-  }
 }
 
 class ListarUsuariosRequest {

@@ -1,57 +1,67 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MediaMatcher} from '@angular/cdk/layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MediaMatcher } from '@angular/cdk/layout';
+
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import {
-  MatButtonModule, 
-  MatFormFieldModule, 
+  MatButtonModule,
+  MatFormFieldModule,
   MatInputModule,
   MatToolbarModule,
-  MatIconModule, 
+  MatIconModule,
   MatSidenavModule,
   MatListModule,
   MatDialogModule,
   MatProgressSpinnerModule,
   MatSelectModule,
   MatCheckboxModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatIconModule, 
+    MatIconModule,
     MatSidenavModule,
     MatListModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
-    MatButtonModule, 
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
-    MatToolbarModule  ,
-    MatIconModule, 
+    MatToolbarModule,
+    MatIconModule,
     MatSidenavModule,
     MatListModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
-    MediaMatcher
+    MediaMatcher,
+    MatNativeDateModule,
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
   ],
   declarations: []
 })

@@ -34,7 +34,9 @@ class loginService extends Rest
 		(
 			"type"=>"success",
 			"msg"=>"",
-			"token"=>"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InJvZHJpZ28iLCJwZXJmaWwiOiJhZG1pbmlzdHJhZG9yIiwiZXhwaXJhY2FvIjoxNTEzODY3NjY0fQ.OeikTjVY6qj3DElFsyQFlGYbvdmoJ4TAhs_TPc8_jH8"
+			"token"=>"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6InJvZHJpZ28iLCJwZXJmaWwiOiJhZG1pbmlzdHJhZG9yIiwiZXhwaXJhY2FvIjoxNTEzODY3NjY0fQ.OeikTjVY6qj3DElFsyQFlGYbvdmoJ4TAhs_TPc8_jH8",
+			"perfil"=>"editor",
+			"nome"=>"Paulo de Sousa"
 		);
 	}
 	

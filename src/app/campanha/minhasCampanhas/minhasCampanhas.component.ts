@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Campanha } from './campanha';
-import { CampanhaService } from './campanha.service';
-import { JanelaMestreComponent } from '../janela-mestre/janela-mestre.component';
+import { Campanha } from '../campanha';
+import { CampanhaService } from '../campanha.service';
+import { JanelaMestreComponent } from '../../janela-mestre/janela-mestre.component';
 
 @Component({
   selector: 'app-minhas-campanhas',
-  templateUrl: './minhasCampanhas.component.html',
+  templateUrl: './minhasCampanhas.component.html', 
   styleUrls: ['./minhasCampanhas.component.css']
 })  
 export class MinhasCampanhasComponent implements OnInit {

@@ -28,6 +28,7 @@ if(!defined("CONFIGURATION"))
 		define("ALLOW_REST_HELP",true);
 		
 		define("BASE_URL","/api/api.php");
+		define("UPLOAD_DIR",'\\');
 	}	
 	//desenvolvimento
 	else
@@ -53,6 +54,7 @@ if(!defined("CONFIGURATION"))
 		define("ALLOW_REST_HELP",true);
 		
 		define("BASE_URL","/scripts/ceiaApi/api.php");
+		define("UPLOAD_DIR",'C:\\Users\\Rodrigo\\Documents\\programacao\\java\\workspace\\ceia\\src\\php\\img\\');
 	}	
 }
 ?>

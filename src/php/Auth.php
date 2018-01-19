@@ -43,7 +43,9 @@ class Auth
 			(
 				"type"=>"success",
 				"msg"=>"",
-				"token"=>$jwt
+				"token"=>$jwt,
+				"perfil"=>$usuario["perfil"],
+				"nome"=>$usuario["nome"]
 			);
 			return $responseJson;
 		}
@@ -113,7 +115,9 @@ class Auth
 		(
 			"type"=>"error",
 			"msg"=>$message,
-			"token"=>""
+			"token"=>"",
+			"perfil"=>"",
+			"nome"=>""
 		);
 		return $responseJson;
 	}

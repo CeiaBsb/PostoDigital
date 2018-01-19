@@ -6,11 +6,11 @@ require_once('./Rest.php');
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-class AtualizarCampanha extends Rest
+class AtualizarPessoa extends Rest
 {
 	function getDescription()
 	{
-		return "Atualizar as informações de uma campanha específica.";
+		return "Atualizar as informações de uma pessoa específica.";
 	}
 	
 	function getUrlParametersDescription()
@@ -20,7 +20,7 @@ class AtualizarCampanha extends Rest
 	
 	function getRequestExample()
 	{
-		return array("id"=>"1","nome"=>"campanha 1","status"=>"ativo");
+		return array("id"=>"1","nome"=>"pessoa 1","dt_nascimento"=>"2018-02-03","nome_mae"=>"maria","atualizado"=>"true","tem_foto"=>"false");
 	}
 	
 	function getResponseExample()
@@ -34,40 +34,44 @@ class AtualizarCampanha extends Rest
 	
 	function getRestrictions()
 	{
-		return "Usuário logado com perfil de administrador";
+		return "Usuário logado";
 	}
 	
 	function call($request,$urlParameters) 
 	{
-		Auth::checkLogin("administrador");
+		Auth::checkLogin("any");
 		
 		$connection = mysqli_connect(DBSERVER, DBUSER, DBPASSWORD, DATABASE);
 		if(!$connection)
-			return DetalharCampanha::errorResponse("Erro de acesso ao banco de dados.");
+			return AtualizarPessoa::errorResponse("Erro de acesso ao banco de dados.");
 
 		$query = 
 		"
 			update 
-				campanha
+				pessoa
 			set 
 				nome = '".$request["nome"]."',
-				status = '".$request["status"]."'
+				dt_nascimento = '".$request["dt_nascimento"]."',
+				nome_mae = '".$request["nome_mae"]."',
+				atualizado = '".$request["atualizado"]."',
+				tem_foto = '".$request["tem_foto"]."'
 			where 
 				id = '".$request["id"]."'		
 		";
+		// echo $query;
 		$result = mysqli_query($connection, $query);
 		if(!$result)
-			return DetalharCampanha::errorResponse("Não foi possível realizar a operação.");		
-		else
-		{
-			$responseJson = 
-			array
-			(
-				"type"=>"success",
-				"msg"=>""
-			);
-			return $responseJson;
-		}
+			return AtualizarPessoa::errorResponse("Não foi possível realizar a operação.");	
+/* 		if(mysqli_affected_rows($connection)==0)
+			return AtualizarPessoa::errorResponse("Não existe uma pessoa com o id informado.");	
+ */		
+		$responseJson = 
+		array
+		(
+			"type"=>"success",
+			"msg"=>""
+		);
+		return $responseJson;
 	}
 	
 	static function errorResponse($message)

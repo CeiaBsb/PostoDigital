@@ -1,7 +1,19 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class UtilService {
+
+    public static handleError<T>(result?: T) {
+        return (error: any): Observable<T> => {
+          // mostra o erro no console do browser
+          console.error(error);
+    
+          // retorna o resultado alternativo
+          return of(result as T);
+        };
+      }
 
     constructor() { }
 
