@@ -58,7 +58,7 @@ export class ListaUsuariosComponent implements OnInit {
       retorno => {
         this.modalProcessando.fecharModal();
         if (retorno.type !== 'error') {
-          this.router.navigate(['usuario/detalhar/' + retorno.usuario.id]);
+          this.router.navigate(['detalharUsuario/' + retorno.usuario.id]);
         }
       }
       );

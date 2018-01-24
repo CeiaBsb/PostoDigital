@@ -14,11 +14,12 @@ import { ModalProcessandoComponent } from '../../janela-mestre/modal-processando
 })
 export class DetalharPessoaComponent implements OnInit {
 
-  pessoa: Pessoa = { id: 0, nome: '', dt_nascimento: new Date(), nome_mae: '', atualizado: false, tem_foto: false };
+  pessoa: Pessoa = { id: 0, nome: '', dt_nascimento: new Date(), nome_mae: '', atualizado: false, tem_foto: '' };
   carregado = false;
   confirmarSenha: string;
   folhasRelacionadas: any;
-
+  idFrequenciaBack: string;
+ 
   constructor
     (
     private pessoaService: PessoaService,
@@ -31,6 +32,7 @@ export class DetalharPessoaComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
+    this.idFrequenciaBack = this.route.snapshot.paramMap.get('freqId');
     this.detalharPessoa(id);
     this.listarFolhas(id);
   }
@@ -59,6 +61,8 @@ export class DetalharPessoaComponent implements OnInit {
       retorno => {
         if (retorno.type === 'success') {
           this.pessoa.tem_foto = 'true';
+        } else if (retorno.type === 'error') {
+          this.modalErro.mostrarModal('Falha ao enviar a foto. Tente com uma imagem menor.');
         }
       }
       );
@@ -90,7 +94,11 @@ export class DetalharPessoaComponent implements OnInit {
         if (retorno.type === 'error') {
           this.modalErro.mostrarModal(retorno.msg);
         } else {
-          this.router.navigate(['listaPessoas']);
+          if (this.idFrequenciaBack == null) {
+            this.router.navigate(['listaPessoas']);
+          } else {
+            this.router.navigate(['preencherFrequencia/' + this.idFrequenciaBack]);
+          }
         }
       }
       );
@@ -106,14 +114,22 @@ export class DetalharPessoaComponent implements OnInit {
         if (retorno.type === 'error') {
           this.modalErro.mostrarModal(retorno.msg);
         } else {
-          this.router.navigate(['listaPessoas']);
+          if (this.idFrequenciaBack == null) {
+            this.router.navigate(['listaPessoas']);
+          } else {
+            this.router.navigate(['preencherFrequencia/' + this.idFrequenciaBack]);
+          }
         }
       }
       );
   }
 
   cancelar() {
-    this.router.navigate(['listaPessoas']);
+    if (this.idFrequenciaBack == null) {
+      this.router.navigate(['listaPessoas']);
+    } else {
+      this.router.navigate(['preencherFrequencia/' + this.idFrequenciaBack]);
+    }
   }
 
 }

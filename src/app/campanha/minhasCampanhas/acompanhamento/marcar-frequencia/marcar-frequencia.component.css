@@ -1,0 +1,97 @@
+.pessoa {
+    position: relative;
+    background-color: rgb(232, 233, 232);
+    height: 64px;
+}
+
+.imagem {
+    width: 64px;
+    height: 64px;
+}
+
+.preenchimento {
+    height: 15px;
+}
+
+.nome {
+    position: relative;
+    top: -65px;
+    left: 70px;
+    width: 300px;
+}
+
+.idade {
+    position: relative;
+    top: -65px;
+    left: 70px;
+    color: rgb(167, 166, 166);
+    width: 300px;
+}
+
+.check {
+    position: relative;
+    top: -65px;
+    left: 70px;
+    font-size: 14px;
+}
+
+.edit-button {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: 20px;
+}
+
+.desatualizado {
+    color: darkblue;
+}
+
+.atualizado {
+    color: rgb(167, 166, 166);
+}
+
+.sideButton {
+    width: 20%;
+    float: right;
+    position: relative;
+    top: 10px;
+}
+
+.filtroBusca {
+    width: 75%;
+}
+
+.right {
+    width: 100%;
+    float: right;
+    text-align: right;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+}
+
+.barra-pesquisa {
+    position: fixed;
+    top: 112px;
+    width: 100%;
+    background-color: white;
+    z-index: 10;
+} 
+
+.barra-back {
+    position: fixed;
+    top: 63px;
+    width: 100%;
+    z-index: 10;
+}
+
+.preenchimento-grosso {
+    height: 140px;
+}
+
+.esquerda {
+    position: absolute;
+    left: 20px;
+}

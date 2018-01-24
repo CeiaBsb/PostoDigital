@@ -61,7 +61,8 @@ class ListarMinhasCampanhas extends Rest
 			where 
 				campanha.id = campanha_usuario.id_campanha and 
 				usuario.id = campanha_usuario.id_usuario and 
-				usuario.login = '".Auth::getUserLogin()."'
+				usuario.login = '".Auth::getUserLogin()."' and
+				campanha.status = 'ativo'
 			order by 
 				campanha.nome
 		";

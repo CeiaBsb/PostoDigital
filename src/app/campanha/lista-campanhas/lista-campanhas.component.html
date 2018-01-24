@@ -1,16 +1,23 @@
 <div class="preenchimento"></div>
 <mat-spinner diameter="40" *ngIf="carregando"></mat-spinner>
 <div *ngIf="!carregando">
-	<mat-form-field class="filtroBusca">
-		<input matInput placeholder="Filtrar pelo nome" #busca/>
-	</mat-form-field>
-	<button mat-raised-button (click)="atualizarVisiveis(busca.value)" color="primary" class="sideButton">Filtrar</button>
+
+	<div class="preenchimento-superior"></div>
+
+	<div class="barra-pesquisa">
+		<mat-form-field class="filtroBusca">
+			<input matInput placeholder="Filtrar pelo nome" #busca (keyup.enter)="atualizarVisiveis(busca.value)"/>
+		</mat-form-field>
+		<button mat-raised-button (click)="atualizarVisiveis(busca.value)" color="primary" class="sideButton">Filtrar</button>
+	</div>
 
 	<mat-nav-list>
 		<a mat-list-item routerLink="/detalharCampanha/{{campanha.id}}" *ngFor="let campanha of visiveis">{{campanha.nome}}</a>
 	</mat-nav-list>
 </div>
-<div class="preenchimento"></div>
+
+<div class="preenchimento-grosso"></div>
+
 <mat-toolbar class="footer">
 	<button mat-icon-button (click)="adicionarCampanha()" color="primary" class="right">Adicionar Campanha
 		<mat-icon>add_circle</mat-icon>

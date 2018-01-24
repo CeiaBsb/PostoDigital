@@ -1,3 +1,4 @@
+import { Pessoa } from './../pessoa/pessoa';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -110,6 +111,7 @@ export class CampanhaService {
           campanha: {id: 0, nome: '', status: ''}  } ) )
       );
   }
+
 
 }
 

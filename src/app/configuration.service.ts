@@ -9,7 +9,7 @@ export class ConfigurationService {
     apiBaseUrl = '';
 
     /* o datePicker do angular tem um problema relacionado ao fuso horário que pode ser corrigido com esse parâmetro.
-     Adicione o número de horas que estiver dando diferença. */
+     Adicione o número de horas que estiver dando diferença. */ 
     hourAdjust = 0;
 
     constructor(

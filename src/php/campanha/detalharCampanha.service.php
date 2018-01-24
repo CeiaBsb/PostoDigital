@@ -12,17 +12,17 @@ class DetalharCampanha extends Rest
 	{
 		return "Obtém os detalhes de uma campanha específica.";
 	}
-	
+
 	function getUrlParametersDescription()
 	{
 		return array("id da campanha");
 	}
-	
+
 	function getRequestExample()
 	{
 		return array();
 	}
-	
+
 	function getResponseExample()
 	{
 		return array
@@ -32,36 +32,36 @@ class DetalharCampanha extends Rest
 			"campanha"=>array("id"=>"1","nome"=>"campanha 1","status"=>"ativo")
 		);
 	}
-	
+
 	function getRestrictions()
 	{
-		return "Usuário logado com perfil de administrador";
+		return "Usuário logado com qualquer perfil";
 	}
-	
-	function call($request,$urlParameters) 
+
+	function call($request,$urlParameters)
 	{
-		Auth::checkLogin("administrador");
-		
+		Auth::checkLogin("any");
+
 		$connection = mysqli_connect(DBSERVER, DBUSER, DBPASSWORD, DATABASE);
 		if(!$connection)
 			return DetalharCampanha::errorResponse("Erro de acesso ao banco de dados.");
 
-		$query = 
+		$query =
 		"
-			select 
-				campanha.* 
-			from 
+			select
+				campanha.*
+			from
 				campanha
-			where 
-				campanha.id = '".$urlParameters[0]."'			
+			where
+				campanha.id = '".$urlParameters[0]."'
 		";
 		$result = mysqli_query($connection, $query);
 		if(!$result)
 			return DetalharCampanha::errorResponse("Erro ao executar consulta no banco.");
-		
+
 		if($campanha = mysqli_fetch_assoc($result))
 		{
-			$responseJson = 
+			$responseJson =
 			array
 			(
 				"type"=>"success",
@@ -73,10 +73,10 @@ class DetalharCampanha extends Rest
 		else
 			return DetalharCampanha::errorResponse("Não existe campanha com o id informado.");
 	}
-	
+
 	static function errorResponse($message)
 	{
-		$responseJson = 
+		$responseJson =
 		array
 		(
 			"type"=>"error",

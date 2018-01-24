@@ -30,4 +30,14 @@ export class UtilService {
         return ret;
     }
 
+    normalizeDate(data: Date): Date {
+        let  novaData: Date = new Date(data);
+        novaData.setSeconds(0);
+        novaData.setMinutes(0);
+        novaData.setHours(0);
+        novaData.setMilliseconds(0);
+        novaData = new Date(novaData.valueOf() - novaData.getTimezoneOffset() * 60000);
+        return novaData;
+    }
+
 }

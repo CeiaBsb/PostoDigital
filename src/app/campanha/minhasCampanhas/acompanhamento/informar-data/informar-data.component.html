@@ -1,10 +1,16 @@
+<mat-toolbar>
+    <button mat-icon-button routerLink="/minhasCampanhas" class="esquerda" color="primary">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</mat-toolbar>
+
 <div class="preenchimento">
 </div>
 
 <mat-form-field class="full-width">
-  <input matInput [matDatepicker]="picker" placeholder="Data do acompanhamento" [(ngModel)]="data">
+  <input matInput [matDatepicker]="picker" placeholder="Data do acompanhamento" [(ngModel)]="dataService.data">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker touchUi="true" #picker></mat-datepicker>
 </mat-form-field>
 
-<button mat-raised-button color="primary" (click)="upload(fileInput)" class="direita">Prosseguir</button>
+<button mat-raised-button color="primary" (click)="prosseguir()" class="direita" disabled="{{carregando}}">Prosseguir</button> 

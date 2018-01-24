@@ -48,18 +48,17 @@ export class PessoaService {
                     date.setTime(date.getTime() + 3600000 * this.config.hourAdjust);
                     response.pessoa.dt_nascimento = date;
                     return response;
-            }
+                }
             ),
             catchError(UtilService.handleError<DetalharPessoaResponse>({
                 type: 'error', msg: 'Erro de conexão com a API.',
-                pessoa: { id: 0, nome: '', dt_nascimento: new Date(), nome_mae: '', atualizado: false, tem_foto: false }
+                pessoa: { id: 0, nome: '', dt_nascimento: new Date(), nome_mae: '', atualizado: false, tem_foto: '' }
             }))
             );
     }
 
     uploadFile(file: File, id: string): Observable<ConfirmationResponse> {
 
-        console.log('arquivo:' + file);
         const formData = new FormData();
         formData.append('userfile', file);
         const options = {
@@ -110,21 +109,21 @@ export class PessoaService {
     }
 
     adicionarPessoa(): Observable<DetalharPessoaResponse> {
-      return this.http.get<DetalharPessoaResponse>(this.config.apiUrl + '/pessoa/adicionar',
-        this.auth.getHttpOptions())
-        .pipe(
-        tap(
-          response => {
-            if (response.type === 'error') {
-              console.log(response.msg);
-            }
-          }
-        ),
-        catchError(UtilService.handleError<DetalharPessoaResponse>( {
-          type: 'error', msg: 'Erro de conexão com a API.',
-          pessoa: {  id: 0, nome: '', dt_nascimento: new Date(), nome_mae: '', atualizado: false, tem_foto: false }
-        }))
-        );
+        return this.http.get<DetalharPessoaResponse>(this.config.apiUrl + '/pessoa/adicionar',
+            this.auth.getHttpOptions())
+            .pipe(
+            tap(
+                response => {
+                    if (response.type === 'error') {
+                        console.log(response.msg);
+                    }
+                }
+            ),
+            catchError(UtilService.handleError<DetalharPessoaResponse>({
+                type: 'error', msg: 'Erro de conexão com a API.',
+                pessoa: { id: 0, nome: '', dt_nascimento: new Date(), nome_mae: '', atualizado: false, tem_foto: '' }
+            }))
+            );
     }
 
     listarFolhasPresenca(id: string): Observable<ListaFolhasResponse> {
@@ -150,25 +149,25 @@ export class PessoaService {
     }
 
     atualizarFolhasPresenca(idPessoa: string, folhas: FolhaRelacionada[]): Observable<ConfirmationResponse> {
-        const request: AtualizarFolhasRequest = {id_pessoa: idPessoa, folhas_relacionadas: []};
+        const request: AtualizarFolhasRequest = { id_pessoa: idPessoa, folhas_relacionadas: [] };
         for (const folha of folhas) {
-          if (folha.relacionado) {
-            request.folhas_relacionadas.push(folha.id);
-          }
+            if (folha.relacionado) {
+                request.folhas_relacionadas.push(folha.id);
+            }
         }
         return this.http.post<ConfirmationResponse>(this.config.apiUrl + '/pessoa/atualizarFolhasPresenca', request,
-          this.auth.getHttpOptions())
-          .pipe(
-          tap(
-            response => {
-              if (response.type === 'error') {
-                console.log(response.msg);
-              }
-            }
-          ),
-          catchError(UtilService.handleError<ConfirmationResponse>( {  type: 'error', msg: 'Erro de conexão com a API.' }))
-          );
-      }
+            this.auth.getHttpOptions())
+            .pipe(
+            tap(
+                response => {
+                    if (response.type === 'error') {
+                        console.log(response.msg);
+                    }
+                }
+            ),
+            catchError(UtilService.handleError<ConfirmationResponse>({ type: 'error', msg: 'Erro de conexão com a API.' }))
+            );
+    }
 }
 
 class ListarPessoasRequest {
@@ -212,4 +211,4 @@ class ListaFolhasResponse {
 class AtualizarFolhasRequest {
     id_pessoa: string;
     folhas_relacionadas: string[];
-  }
+}

@@ -1,3 +1,4 @@
+import { ListarFolhasComponent } from './../campanha/minhasCampanhas/acompanhamento/listar-folhas/listar-folhas.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -7,11 +8,13 @@ import { InformarDataComponent } from '../campanha/minhasCampanhas/acompanhament
 import { DetalharCampanhaComponent } from '../campanha/detalhar-campanha/detalhar-campanha.component';
 import { ListaCampanhasComponent } from '../campanha/lista-campanhas/lista-campanhas.component';
 import { ModalProcessandoComponent } from './modal-processando/modal-processando.component';
-import { ModalErroComponent } from './modal-erro/modal-erro.component';
+import { ModalErroComponent } from './modal-erro/modal-erro.component'; 
 import {ListaUsuariosComponent} from '../usuario/lista-usuarios/lista-usuarios.component';
 import {ListaPessoasComponent} from '../pessoa/lista-pessoas/lista-pessoas.component';
 import { DetalharUsuarioComponent } from './../usuario/detalhar-usuario/detalhar-usuario.component';
 import { DetalharPessoaComponent } from '../pessoa/detalhar-pessoa/detalhar-pessoa.component';
+import { MarcarFrequenciaComponent } from '../campanha/minhasCampanhas/acompanhamento/marcar-frequencia/marcar-frequencia.component';
+import { IniciarAcompanhamentoComponent } from '../campanha/minhasCampanhas/acompanhamento/iniciar-acompanhamento.component';
 
 const routes: Routes = [
   {path: 'minhasCampanhas', component: MinhasCampanhasComponent },
@@ -22,7 +25,11 @@ const routes: Routes = [
   {path: 'listaPessoas', component: ListaPessoasComponent },
   {path: 'detalharUsuario/:id', component: DetalharUsuarioComponent },
   {path: 'detalharPessoa/:id', component: DetalharPessoaComponent },
-  {path: 'dataDaCampanha/:id', component: InformarDataComponent },
+  {path: 'detalharPessoa/:id/:freqId', component: DetalharPessoaComponent },
+  {path: 'informarData/:id', component: InformarDataComponent },
+  {path: 'listarFolhas', component: ListarFolhasComponent },
+  {path: 'iniciarAcompanhamento/:id', component: IniciarAcompanhamentoComponent },
+  {path: 'preencherFrequencia/:id', component: MarcarFrequenciaComponent },
   {path: '', redirectTo: '/minhasCampanhas', pathMatch: 'full'}
 ];
 

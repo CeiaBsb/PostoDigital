@@ -7,19 +7,19 @@ use \Firebase\JWT\JWT;
 
 class Auth
 {
-	
+
 	private static $key = "chave_do_servidor";
-		
-	function login($request) 
+
+	function login($request)
 	{
 		if
 		(
 			!is_array($request) ||
 			!isset($request["user"]) ||
-			!isset($request["password"]) 
+			!isset($request["password"])
 		)
 			return Auth::errorResponse("Erro de login. As credenciais não foram informadas.");
-		
+
 		$connection = mysqli_connect(DBSERVER, DBUSER, DBPASSWORD, DATABASE);
 		if(!$connection)
 			return Auth::errorResponse("Erro de acesso ao banco de dados.");
@@ -28,7 +28,7 @@ class Auth
 		$result = mysqli_query($connection, $query);
 		if(!$result)
 			return Auth::errorResponse("Erro ao executar consulta no banco.");
-		
+
 		if($usuario = mysqli_fetch_assoc($result))
 		{
 			$token = array(
@@ -37,8 +37,8 @@ class Auth
 				"expiracao" => time()+(EXPIRATION_TIME*60)
 			);
 			$jwt = JWT::encode($token, Auth::$key);
-	
-			$responseJson = 
+
+			$responseJson =
 			array
 			(
 				"type"=>"success",
@@ -49,11 +49,11 @@ class Auth
 			);
 			return $responseJson;
 		}
-		else 
+		else
 			return Auth::errorResponse("Erro de login. As credenciais são inválidas.");
-		
+
 	}
-	
+
 	static function checkLogin($perfil)
 	{
 		if(!CHECK_LOGIN)
@@ -74,7 +74,7 @@ class Auth
 				return;
 			if($decoded_array['perfil']==$perfil)
 				return;
-			
+
 			Auth::acessoNegado();
 		}
 		catch (Exception $e)
@@ -82,7 +82,7 @@ class Auth
 			acessoNegado();
 		}
 	}
-	
+
 	static function getUserLogin()
 	{
 		if(!isset($_SERVER['HTTP_JWT']))
@@ -101,16 +101,16 @@ class Auth
 			return null;
 		}
 	}
-	
+
 	static function acessoNegado()
 	{
 		header("HTTP/1.1 401 Unauthorized");
 		exit;
 	}
-	
+
 	static function errorResponse($message)
 	{
-		$responseJson = 
+		$responseJson =
 		array
 		(
 			"type"=>"error",

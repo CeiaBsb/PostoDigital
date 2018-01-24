@@ -85,6 +85,22 @@ class Upload extends Rest
 		$img = UPLOAD_DIR.$id.'_'.$size.'.jpg'; 
 
 		list($width, $height) = getimagesize($original) ;
+		
+		$VerticalGap = 0;
+		$HorizontalGap = 0;
+		if($width != $height)
+		{
+			if($width < $height)
+			{
+				$VerticalGap = ($height - $width)/2;
+				$height = $width;
+			}
+			if($height < $width)
+			{
+				$HorizontalGap = ($width - $height)/2;
+				$width = $height;
+			}
+		}
 
 		$modwidth = $size;
 		$diff = $width / $modwidth;
@@ -92,8 +108,7 @@ class Upload extends Rest
 		
 		$tn = imagecreatetruecolor($modwidth, $modheight) ;
 		$image = imagecreatefromjpeg($original) ;
-		
-		imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height) ;
+		imagecopyresampled($tn, $image, 0, 0, $HorizontalGap, $VerticalGap, $modwidth, $modheight, $width, $height) ;
 		imagejpeg($tn, $img, $size) ;
 	}
 	

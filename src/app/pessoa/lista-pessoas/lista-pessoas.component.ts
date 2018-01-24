@@ -14,7 +14,7 @@ import { UtilService } from '../../util.service';
 export class ListaPessoasComponent implements OnInit {
 
   pessoas: Pessoa[];
-  visiveis: Pessoa[];
+  visiveis: Pessoa[]; 
   carregando = false;
 
   constructor(

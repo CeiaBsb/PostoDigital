@@ -23,3 +23,19 @@
     position: fixed;
     bottom: 0px;
 }
+
+.preenchimento-grosso {
+    height: 70px;
+}
+
+.preenchimento-superior {
+    height: 40px;
+}
+
+.barra-pesquisa {
+    position: fixed;
+    top: 63px;
+    width: 100%;
+    background-color: white;
+    z-index: 10;
+} 

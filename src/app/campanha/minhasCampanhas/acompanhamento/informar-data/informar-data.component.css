@@ -6,3 +6,8 @@
 .direita {
 	float: right;
 }
+
+.esquerda {
+    position: absolute;
+    left: 20px;
+}

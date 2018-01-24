@@ -20,16 +20,16 @@ if(!defined("CONFIGURATION"))
 		define("DATABASE","2568702_ceia");
 
 		//a duração da seção em minutos
-		define("EXPIRATION_TIME",60);
-		
+		define("EXPIRATION_TIME",1440);
+
 		define("CHECK_LOGIN",true);
-		
+
 		define("VALIDATE_REST_PARAMETERS",true);
 		define("ALLOW_REST_HELP",true);
-		
+
 		define("BASE_URL","/api/api.php");
-		define("UPLOAD_DIR",'\\');
-	}	
+		define("UPLOAD_DIR",'./img/');
+	}
 	//desenvolvimento
 	else
 	{
@@ -47,14 +47,14 @@ if(!defined("CONFIGURATION"))
 
 		//a duração da seção em minutos
 		define("EXPIRATION_TIME",60);
-		
+
 		define("CHECK_LOGIN",true);
-		
+
 		define("VALIDATE_REST_PARAMETERS",true);
 		define("ALLOW_REST_HELP",true);
-		
+
 		define("BASE_URL","/scripts/ceiaApi/api.php");
 		define("UPLOAD_DIR",'C:\\Users\\Rodrigo\\Documents\\programacao\\java\\workspace\\ceia\\src\\php\\img\\');
-	}	
+	}
 }
 ?>

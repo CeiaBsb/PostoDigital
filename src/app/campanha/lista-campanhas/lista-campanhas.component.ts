@@ -59,7 +59,7 @@ export class ListaCampanhasComponent implements OnInit {
         retorno => {
           this.modalProcessando.fecharModal();
           if (retorno.type !== 'error') {
-            this.router.navigate(['campanha/detalhar/' + retorno.campanha.id]);
+            this.router.navigate(['detalharCampanha/' + retorno.campanha.id]);
           }
         }
       );

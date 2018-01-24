@@ -47,6 +47,26 @@ class AtualizarUsuario extends Rest
 
 		$query = 
 		"
+			select 
+				count(id) as count
+			from 
+				usuario
+			where 
+				login = '".$request["login"]."'
+				and id != '".$request["id"]."'			
+		";
+		$result = mysqli_query($connection, $query);
+		if(!$result)
+			return AtualizarUsuario::errorResponse("Erro ao executar consulta no banco.");
+		
+		if($result = mysqli_fetch_assoc($result))
+		{
+			if($result["count"]!="0")
+				return AtualizarUsuario::errorResponse("Já existe um outro usuário com esse login.");
+		}
+		
+		$query = 
+		"
 			update 
 				usuario
 			set 
@@ -61,8 +81,6 @@ class AtualizarUsuario extends Rest
 		$result = mysqli_query($connection, $query);
 		if(!$result)
 			return AtualizarUsuario::errorResponse("Não foi possível realizar a operação.");		
-		if(mysqli_affected_rows($connection)==0)
-			return AtualizarUsuario::errorResponse("Não existe um usuário com o id informado.");	
 		
 		$responseJson = 
 		array

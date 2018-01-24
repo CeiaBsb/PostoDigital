@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   password: string;
   
   constructor(
+    private router: Router,
     private auth: AuthenticationService, 
     private modalProcessando: ModalProcessandoComponent,
     private modalErro: ModalErroComponent
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.modalProcessando.mostrarModal();
     this.auth.login(this.user, this.password)
-      .subscribe(        
+      .subscribe(         
         retorno => {
           if (retorno.type !== 'error') {
             this.user = '';
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
             this.modalErro.mostrarModal(retorno.msg);
           }
           this.password = '';
+          this.router.navigate(['.']);
           this.modalProcessando.fecharModal();
         }
       );

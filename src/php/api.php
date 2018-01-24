@@ -38,6 +38,9 @@ Rest::addRoute("POST","/pessoa/atualizar",'./pessoa/atualizarPessoa.service.php'
 Rest::addRoute("GET","/pessoa/adicionar",'./pessoa/adicionarPessoa.service.php',"AdicionarPessoa");
 Rest::addRoute("GET","/pessoa/listarFolhasPresenca",'./pessoa/listarFolhasPresenca.service.php',"ListarFolhasPresencaDaPessoa");
 Rest::addRoute("POST","/pessoa/atualizarFolhasPresenca",'./pessoa/atualizarFolhasPresenca.service.php',"AtualizarFolhasPresencaDaPessoa");
+Rest::addRoute("POST","/frequencia/registrarPresenca",'./frequencia/registrarPresenca.service.php',"RegistrarPresenca");
+Rest::addRoute("GET","/frequencia/listarFolhas",'./frequencia/listarFolhas.service.php',"ListarFolhas");
+Rest::addRoute("POST","/frequencia/pessoasFrequencia",'./frequencia/listarPessoasDaListaFrequencia.service.php',"listarPessoasDaListaFrequencia");
 Rest::addRoute("POST","/upload",'./upload.php',"Upload");
 Rest::not_found();
 ?>

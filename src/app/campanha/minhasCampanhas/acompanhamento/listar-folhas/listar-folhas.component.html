@@ -1,0 +1,16 @@
+<mat-toolbar class="barra-back">
+    <button mat-icon-button routerLink="/informarData/{{dataService.campanha.id}}" class="esquerda" color="primary">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div class="preenchimento-grosso"></div>
+
+Folhas de Frequência:
+<div class="preenchimento"></div>
+<mat-spinner diameter="40" *ngIf="carregando"></mat-spinner>
+<div *ngIf="!carregando">
+  <mat-nav-list>
+    <a mat-list-item routerLink="/preencherFrequencia/{{folha.id}}" *ngFor="let folha of dataService.frequencia">{{folha.nome}}</a>
+  </mat-nav-list>
+</div>

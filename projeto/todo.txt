@@ -1,2 +1,9 @@
-- em minhasCampanhas devo mostrar apenas as ativas
-- quando o front receber uma resposta 401, deve mostrar a tela de login
+- mensagens de confirmação antes de apagar itens importantes
+- na ordem alfabética ítala está antes de bruna
+ (já vi que esse ordenamento vem do banco)
+- a barra de voltar está mal colocada no celular, mas está ok no computador.
+- a data de nascimento deve ser menor que hoje
+- trocar favicon
+- fixar as barras de ação dentro das telas de detalhamento
+
+republicar arquivos php

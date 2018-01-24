@@ -58,8 +58,6 @@ class AtualizarCampanha extends Rest
 		$result = mysqli_query($connection, $query);
 		if(!$result)
 			return AtualizarCampanha::errorResponse("Não foi possível realizar a operação.");		
-		if(mysqli_affected_rows($connection)==0)
-			return AtualizarCampanha::errorResponse("Não existe uma campanha com o id informado.");	
 		
 		$responseJson = 
 		array

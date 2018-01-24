@@ -1,3 +1,7 @@
+import { PtBrDateAdapter } from './ptBrDateAdapter';
+import { ModalFotoComponent } from './campanha/minhasCampanhas/acompanhamento/modal-foto/modal-foto.component';
+import { FrequenciaService } from './frequencia/frequencia.service';
+import { ListarFolhasComponent } from './campanha/minhasCampanhas/acompanhamento/listar-folhas/listar-folhas.component';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -18,7 +22,6 @@ import {ListaUsuariosComponent} from './usuario/lista-usuarios/lista-usuarios.co
 import {ListaPessoasComponent} from './pessoa/lista-pessoas/lista-pessoas.component';
 import { DetalharUsuarioComponent } from './usuario/detalhar-usuario/detalhar-usuario.component';
 import { DetalharPessoaComponent } from './pessoa/detalhar-pessoa/detalhar-pessoa.component';
-
 import { AuthenticationService } from './login/authentication.service';
 import { CampanhaService } from './campanha/campanha.service';
 import {ConfigurationService} from './configuration.service';
@@ -28,6 +31,11 @@ import { PessoaService } from './pessoa/pessoa.service';
 import { DOCUMENT } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './login/JwtInterceptor';
+import { RegistrarCampanhaService } from './campanha/minhasCampanhas/acompanhamento/registrarCampanha.service';
+import { MarcarFrequenciaComponent } from './campanha/minhasCampanhas/acompanhamento/marcar-frequencia/marcar-frequencia.component';
+import { IniciarAcompanhamentoComponent } from './campanha/minhasCampanhas/acompanhamento/iniciar-acompanhamento.component';
+import { LimitStringPipe } from './limit-string.pipe';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -41,8 +49,13 @@ import { JwtInterceptor } from './login/JwtInterceptor';
     ListaPessoasComponent,
     DetalharPessoaComponent,
     InformarDataComponent,
-    LogoutComponent
-  ],
+    LogoutComponent,
+    ListarFolhasComponent, 
+    MarcarFrequenciaComponent,
+    IniciarAcompanhamentoComponent,
+    ModalFotoComponent,
+    LimitStringPipe
+],
   imports: [
     BrowserModule,
     FormsModule,
@@ -58,12 +71,23 @@ import { JwtInterceptor } from './login/JwtInterceptor';
     UsuarioService,
     PessoaService,
     UtilService,
+    RegistrarCampanhaService,
+    FrequenciaService,
+    ModalFotoComponent,
     Document,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    } 
+    }, 
+    { 
+      provide: DateAdapter, 
+      useClass: PtBrDateAdapter, 
+      deps: [MAT_DATE_LOCALE] 
+    }
+  ],
+  entryComponents: [
+    ModalFotoComponent
   ],
   bootstrap: [AppComponent]
 })

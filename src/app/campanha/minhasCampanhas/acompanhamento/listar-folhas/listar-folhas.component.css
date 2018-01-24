@@ -1,0 +1,16 @@
+
+.preenchimento-grosso {
+    height: 70px;
+}
+
+.esquerda {
+    position: absolute;
+    left: 20px;
+}
+
+.barra-back {
+    position: fixed;
+    top: 63px;
+    width: 100%;
+    z-index: 10;
+}

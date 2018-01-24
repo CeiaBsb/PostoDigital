@@ -16,7 +16,7 @@ export class ModalProcessandoComponent implements OnInit {
 
   mostrarModal(): void {
     this.dialogRef = this.dialog.open(ModalProcessandoComponent, {
-      height: '100px',  width: '300px'
+      height: '100px',  width: '300px', disableClose: true
       // height: '300px',  width: '200px',
     });
   }

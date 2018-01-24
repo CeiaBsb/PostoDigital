@@ -62,9 +62,7 @@ class AtualizarPessoa extends Rest
 		$result = mysqli_query($connection, $query);
 		if(!$result)
 			return AtualizarPessoa::errorResponse("Não foi possível realizar a operação.");	
-/* 		if(mysqli_affected_rows($connection)==0)
-			return AtualizarPessoa::errorResponse("Não existe uma pessoa com o id informado.");	
- */		
+
 		$responseJson = 
 		array
 		(

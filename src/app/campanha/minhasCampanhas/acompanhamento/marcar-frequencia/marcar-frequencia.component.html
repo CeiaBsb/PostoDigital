@@ -1,0 +1,55 @@
+<mat-toolbar class="barra-back">
+  <button mat-icon-button routerLink="/listarFolhas" class="esquerda" color="primary">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="preenchimento-grosso"></div>
+
+<div class="barra-pesquisa">
+  <mat-form-field class="filtroBusca">
+    <input matInput placeholder="Filtrar pelo nome" #busca (keyup.enter)="atualizarVisiveis(busca.value)" />
+  </mat-form-field>
+  <button mat-raised-button (click)="atualizarVisiveis(busca.value)" color="primary" class="sideButton">Filtrar</button>
+</div>
+
+<mat-spinner diameter="40" *ngIf="carregando"></mat-spinner>
+<div *ngIf="!carregando">
+
+
+
+  <div *ngFor="let pessoa of visiveis">
+    <div class="pessoa">
+      <div class="imagem">
+        <img *ngIf="pessoa.tem_foto == 'true'" src="{{config.apiBaseUrl}}/img/{{pessoa.id}}_64.jpg" alt="{{pessoa.nome}}" (click)="showModal(pessoa.id, pessoa.nome)">
+        <img *ngIf="pessoa.tem_foto == 'false'" src="{{config.apiBaseUrl}}/img/sem_foto_64.jpg" alt="{{pessoa.nome}}">
+      </div>
+
+      <div class="nome">
+        {{pessoa.nome | limitString: 35}}
+      </div>
+
+      <div class="idade">
+        {{calcularIdade(pessoa.dt_nascimento)}}
+      </div>
+
+      <mat-checkbox labelPosition="before" (change)="marcarPresenca(pessoa.id, pessoa.presente)" [(ngModel)]="pessoa.presente"
+        class="check">presente</mat-checkbox>
+
+      <button mat-icon-button (click)="editar(pessoa.id)" class="edit-button" [class.desatualizado]="pessoa.atualizado ==='false'"
+        [class.atualizado]="pessoa.atualizado ==='true'">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="preenchimento"></div>
+  </div>
+</div>
+
+<div class="preenchimento-grosso"></div>
+
+<mat-toolbar class="footer">
+  <button mat-icon-button (click)="adicionarPessoa()" color="primary" class="right">Adicionar Pessoa
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</mat-toolbar>
