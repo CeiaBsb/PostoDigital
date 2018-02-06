@@ -80,6 +80,31 @@ export class FrequenciaService {
             );
     }
 
+    resumirFolhaNaData(idFolha: string, data: Date): Observable<ResumirFolhaNaDataResponse> {
+        data = this.util.normalizeDate(data);
+        const request = { id_folha: idFolha, data: data };
+        return this.http.post<ResumirFolhaNaDataResponse>(this.config.apiUrl + '/frequencia/resumirFolhaNaData', request,
+            this.auth.getHttpOptions())
+            .pipe(
+            tap(
+                response => {
+                    if (response.type === 'error') {
+                        console.log(response.msg);
+                    }
+                }
+            ),
+            catchError(UtilService.handleError<ResumirFolhaNaDataResponse>({ type: 'error', msg: 'Erro de conexão com a API.',
+            pessoas: '0', presentes: '0' }))
+            );
+    }
+
+}
+
+class ResumirFolhaNaDataResponse {
+    type: string;
+    msg: string;
+    pessoas: string;
+    presentes: string;
 }
 
 class MarcarPresencaRequest {

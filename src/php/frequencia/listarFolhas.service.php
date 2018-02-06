@@ -10,7 +10,7 @@ class ListarFolhas extends Rest
 {
 	function getDescription()
 	{
-		return "Lista as folhas de frequência, doações e atividades da campanha.";
+		return "Lista as folhas de frequência da campanha.";
 	}
 	
 	function getUrlParametersDescription()

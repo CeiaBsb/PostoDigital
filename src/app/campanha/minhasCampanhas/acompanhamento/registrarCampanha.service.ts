@@ -7,10 +7,10 @@ export class RegistrarCampanhaService {
 
     campanha: Campanha;
     data: Date;
-    frequencia: Folha[];
+    filtro = '';
     
     folhaFreqSelecionada: string;
-    pessoas: PessoaPresenca[];
+    relacaoItensSelecionada: string;
 
     constructor() { }
 

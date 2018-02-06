@@ -7,6 +7,7 @@ export class ConfigurationService {
     apiUrl = '';
     baseUrl = '';
     apiBaseUrl = '';
+    permiteRefresh = false;
 
     /* o datePicker do angular tem um problema relacionado ao fuso horário que pode ser corrigido com esse parâmetro.
      Adicione o número de horas que estiver dando diferença. */ 
@@ -22,6 +23,7 @@ export class ConfigurationService {
             this.apiBaseUrl = 'http://127.0.0.1/scripts/ceiaApi';
             this.baseUrl = 'http://localhost:4200';
             this.hourAdjust = 24;
+            this.permiteRefresh = true;
         } else 
         // ambiente de homologacao
         if (this.document.baseURI.indexOf('http://ceia.eu3.org') === 0) {
@@ -30,6 +32,7 @@ export class ConfigurationService {
             this.apiBaseUrl = 'http://ceia.eu3.org/api';
             this.baseUrl = 'http://ceia.eu3.org';
             this.hourAdjust = 24;
+            this.permiteRefresh = false;
         }
     }
 

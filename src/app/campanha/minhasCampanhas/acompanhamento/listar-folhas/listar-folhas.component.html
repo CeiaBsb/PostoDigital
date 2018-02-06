@@ -9,8 +9,17 @@
 Folhas de Frequência:
 <div class="preenchimento"></div>
 <mat-spinner diameter="40" *ngIf="carregando"></mat-spinner>
-<div *ngIf="!carregando">
-  <mat-nav-list>
-    <a mat-list-item routerLink="/preencherFrequencia/{{folha.id}}" *ngFor="let folha of dataService.frequencia">{{folha.nome}}</a>
+<div *ngIf="!carregando"> 
+  <mat-nav-list> 
+    <a mat-list-item routerLink="/preencherFrequencia/{{folha.id}}" *ngFor="let folha of frequencia">{{folha.nome}} <div *ngIf="folhas[folha.id]"> - presenças: {{folhas[folha.id]}}</div></a>
+  </mat-nav-list>
+</div>
+
+Folhas de Itens:
+<div class="preenchimento"></div>
+<mat-spinner diameter="40" *ngIf="carregandoItens"></mat-spinner>
+<div *ngIf="!carregandoItens"> 
+  <mat-nav-list> 
+    <a mat-list-item routerLink="/preencherRelacao/{{item.id}}" *ngFor="let item of itens">{{item.nome}} <div *ngIf="resumoRelacaoItens[item.id]"> - {{resumoRelacaoItens[item.id]}}</div></a>
   </mat-nav-list>
 </div>

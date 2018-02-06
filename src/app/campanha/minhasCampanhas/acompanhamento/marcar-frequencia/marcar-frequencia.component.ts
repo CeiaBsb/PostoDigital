@@ -19,6 +19,8 @@ export class MarcarFrequenciaComponent implements OnInit {
 
   carregando = false;
   visiveis: PessoaPresenca[];
+  filtro = '';
+  pessoas: PessoaPresenca[];
 
   constructor(
     private pessoaService: PessoaService,
@@ -36,6 +38,7 @@ export class MarcarFrequenciaComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.folhaFreqSelecionada = this.route.snapshot.paramMap.get('id');
+    this.filtro = this.dataService.filtro;
     this.carregarPessoas();
   }
 
@@ -44,8 +47,8 @@ export class MarcarFrequenciaComponent implements OnInit {
     this.frequenciaService.listarPessoasParaFrequencia(this.dataService.folhaFreqSelecionada, this.dataService.data)
       .subscribe(
       retorno => {
-        this.dataService.pessoas = retorno.pessoas;
-        this.atualizarVisiveis('');
+        this.pessoas = retorno.pessoas;
+        this.atualizarVisiveis(this.dataService.filtro);
         this.carregando = false;
       }
       );
@@ -87,8 +90,9 @@ export class MarcarFrequenciaComponent implements OnInit {
   }
 
   atualizarVisiveis(parteNome: string) {
-    this.visiveis = [];
-    for (const pessoa of this.dataService.pessoas) {
+    this.dataService.filtro = parteNome;
+    this.visiveis = []; 
+    for (const pessoa of this.pessoas) {
       if (this.util.normalize(pessoa.nome).indexOf(this.util.normalize(parteNome)) >= 0) {
         this.visiveis.push(pessoa);
       }

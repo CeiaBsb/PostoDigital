@@ -1,3 +1,4 @@
+import { ConfigurationService } from './../configuration.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
@@ -14,31 +15,39 @@ export class LoginComponent implements OnInit {
 
   user: string;
   password: string;
-  
+
   constructor(
     private router: Router,
-    private auth: AuthenticationService, 
+    private auth: AuthenticationService,
     private modalProcessando: ModalProcessandoComponent,
-    private modalErro: ModalErroComponent
+    private modalErro: ModalErroComponent,
+    private config: ConfigurationService
   ) { }
 
   ngOnInit() {
   }
-  
+
   login() {
     this.modalProcessando.mostrarModal();
     this.auth.login(this.user, this.password)
-      .subscribe(         
-        retorno => {
-          if (retorno.type !== 'error') {
-            this.user = '';
-          } else {
-            this.modalErro.mostrarModal(retorno.msg);
+      .subscribe(
+      retorno => {
+        if (retorno.type !== 'error') {
+          this.user = '';
+          if (!this.config.permiteRefresh) {
+            window.addEventListener('beforeunload', function (e) {
+              const confirmationMessage = '\o/';
+              e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
+              return confirmationMessage;              // Gecko, WebKit, Chrome <34
+            });
           }
-          this.password = '';
-          this.router.navigate(['.']);
-          this.modalProcessando.fecharModal();
+        } else {
+          this.modalErro.mostrarModal(retorno.msg);
         }
+        this.password = '';
+        this.router.navigate(['.']);
+        this.modalProcessando.fecharModal();
+      }
       );
   }
 }

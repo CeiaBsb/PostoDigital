@@ -12,17 +12,17 @@ class AtualizarPessoa extends Rest
 	{
 		return "Atualizar as informações de uma pessoa específica.";
 	}
-	
+
 	function getUrlParametersDescription()
 	{
 		return array();
 	}
-	
+
 	function getRequestExample()
 	{
 		return array("id"=>"1","nome"=>"pessoa 1","dt_nascimento"=>"2018-02-03","nome_mae"=>"maria","atualizado"=>"true","tem_foto"=>"false");
 	}
-	
+
 	function getResponseExample()
 	{
 		return array
@@ -31,39 +31,39 @@ class AtualizarPessoa extends Rest
 			"msg"=>""
 		);
 	}
-	
+
 	function getRestrictions()
 	{
 		return "Usuário logado";
 	}
-	
-	function call($request,$urlParameters) 
+
+	function call($request,$urlParameters)
 	{
 		Auth::checkLogin("any");
-		
+
 		$connection = mysqli_connect(DBSERVER, DBUSER, DBPASSWORD, DATABASE);
 		if(!$connection)
 			return AtualizarPessoa::errorResponse("Erro de acesso ao banco de dados.");
 
-		$query = 
+		$query =
 		"
-			update 
+			update
 				pessoa
-			set 
+			set
 				nome = '".$request["nome"]."',
 				dt_nascimento = '".$request["dt_nascimento"]."',
 				nome_mae = '".$request["nome_mae"]."',
 				atualizado = '".$request["atualizado"]."',
 				tem_foto = '".$request["tem_foto"]."'
-			where 
-				id = '".$request["id"]."'		
+			where
+				id = '".$request["id"]."'
 		";
 		// echo $query;
 		$result = mysqli_query($connection, $query);
 		if(!$result)
-			return AtualizarPessoa::errorResponse("Não foi possível realizar a operação.");	
+			return AtualizarPessoa::errorResponse("Não foi possível realizar a operação.");
 
-		$responseJson = 
+		$responseJson =
 		array
 		(
 			"type"=>"success",
@@ -71,10 +71,10 @@ class AtualizarPessoa extends Rest
 		);
 		return $responseJson;
 	}
-	
+
 	static function errorResponse($message)
 	{
-		$responseJson = 
+		$responseJson =
 		array
 		(
 			"type"=>"error",

@@ -1,0 +1,40 @@
+ 
+ .title {
+	position: relative;
+	top: 30px;
+	left: 0px;
+ }
+
+ .content {
+	position: relative;
+	top: 0px;
+	left: 0px;
+ }
+
+ .icone {
+	position: relative;
+	top: -90px;
+    left: -10px;
+    font-size: 50px;
+}
+
+.nao-button {
+	position: relative;
+	top: 31px;
+    left: 20px;
+}
+
+.sim-button {
+	position: relative;
+	top: -5px;
+    left: 130px;
+}
+
+.dialog-container {
+    height: 1px;
+    width: 170px;
+	position: relative;
+	top: -40px;
+    left: 0px;
+}
+

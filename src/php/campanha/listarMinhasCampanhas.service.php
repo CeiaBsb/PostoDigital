@@ -12,19 +12,19 @@ class ListarMinhasCampanhas extends Rest
 	{
 		return "Lista as campanhas do usuário.";
 	}
-	
+
 	function getUrlParametersDescription()
 	{
 		return array();
 	}
-	
+
 	function getRequestExample()
 	{
 		return array
 		(
 		);
 	}
-	
+
 	function getResponseExample()
 	{
 		return array
@@ -36,45 +36,45 @@ class ListarMinhasCampanhas extends Rest
 			)
 		);
 	}
-	
+
 	function getRestrictions()
 	{
 		return "Usuário logado com qualquer perfil";
 	}
-	
-	function call($request,$urlParameters) 
+
+	function call($request,$urlParameters)
 	{
 		Auth::checkLogin("any");
-		
+
 		$connection = mysqli_connect(DBSERVER, DBUSER, DBPASSWORD, DATABASE);
 		if(!$connection)
-			return Campanha::errorResponse("Erro de acesso ao banco de dados.");
+			return ListarMinhasCampanhas::errorResponse("Erro de acesso ao banco de dados.");
 
-		$query = 
+		$query =
 		"
-			select 
-				campanha.* 
-			from 
-				campanha, 
-				campanha_usuario, 
-				usuario 
-			where 
-				campanha.id = campanha_usuario.id_campanha and 
-				usuario.id = campanha_usuario.id_usuario and 
+			select
+				campanha.*
+			from
+				campanha,
+				campanha_usuario,
+				usuario
+			where
+				campanha.id = campanha_usuario.id_campanha and
+				usuario.id = campanha_usuario.id_usuario and
 				usuario.login = '".Auth::getUserLogin()."' and
 				campanha.status = 'ativo'
-			order by 
+			order by
 				campanha.nome
 		";
 		$result = mysqli_query($connection, $query);
 		if(!$result)
-			return Campanha::errorResponse("Erro ao executar consulta no banco.");
-		
+			return ListarMinhasCampanhas::errorResponse("Erro ao executar consulta no banco.");
+
 		$campanhas = array();
 		while($campanha = mysqli_fetch_assoc($result))
 			array_push($campanhas, $campanha);
-		
-		$responseJson = 
+
+		$responseJson =
 		array
 		(
 			"type"=>"success",
@@ -83,10 +83,10 @@ class ListarMinhasCampanhas extends Rest
 		);
 		return $responseJson;
 	}
-	
+
 	static function errorResponse($message)
 	{
-		$responseJson = 
+		$responseJson =
 		array
 		(
 			"type"=>"error",

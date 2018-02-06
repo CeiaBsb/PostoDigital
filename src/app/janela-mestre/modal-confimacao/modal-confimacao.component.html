@@ -1,0 +1,8 @@
+<div class="dialog-container">
+    <h1 mat-dialog-title class="title">Confirmação</h1>
+    <div mat-dialog-content class="content">
+      <p>{{getMensagem()}}</p>
+    </div>
+    <button mat-raised-button (click)="responderNao()" class="nao-button" color="primary">Não</button>
+    <button mat-raised-button (click)="responderSim()" class="sim-button" color="primary">Sim</button>
+  </div>

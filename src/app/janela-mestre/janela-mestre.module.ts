@@ -8,6 +8,7 @@ import { ModalProcessandoComponent } from './modal-processando/modal-processando
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ModalErroComponent } from './modal-erro/modal-erro.component';
+import { ModalConfimacaoComponent } from './modal-confimacao/modal-confimacao.component';
 
 @NgModule({
   imports: [
@@ -21,16 +22,19 @@ import { ModalErroComponent } from './modal-erro/modal-erro.component';
   ],
   providers: [
     ModalProcessandoComponent,
-    ModalErroComponent
+    ModalErroComponent, 
+    ModalConfimacaoComponent
   ],
   declarations: [
     JanelaMestreComponent,
     ModalProcessandoComponent,
-    ModalErroComponent
+    ModalErroComponent, 
+    ModalConfimacaoComponent
   ],
   entryComponents: [
     ModalProcessandoComponent,
-    ModalErroComponent
+    ModalErroComponent, 
+    ModalConfimacaoComponent
   ],
 })
 export class JanelaMestreModule { }

@@ -8,9 +8,22 @@
 </div>
 
 <mat-form-field class="full-width">
-  <input matInput [matDatepicker]="picker" placeholder="Data do acompanhamento" [(ngModel)]="dataService.data">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker touchUi="true" #picker></mat-datepicker>
+    <input matInput [matDatepicker]="picker" placeholder="Data do acompanhamento" [(ngModel)]="dataService.data" [max]="now">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi="true" #picker></mat-datepicker>
 </mat-form-field>
 
-<button mat-raised-button color="primary" (click)="prosseguir()" class="direita" disabled="{{carregando}}">Prosseguir</button> 
+<button mat-raised-button color="primary" (click)="prosseguir()" class="direita" disabled="{{carregando}}">Prosseguir</button>
+<div class="preenchimento">
+</div>
+<div class="preenchimento">
+</div>
+<div class="preenchimento">
+</div>
+Acompanhamentos realizados:
+<mat-spinner diameter="40" *ngIf="carregandoAcompanhamentos"></mat-spinner>
+<div *ngIf="!carregandoAcompanhamentos">
+    <mat-nav-list>
+        <a mat-list-item (click)="dataService.data = acompanhamento.data; prosseguir()" *ngFor="let acompanhamento of acompanhamentos">{{dateAdapter.format(acompanhamento.data,'')}}</a>
+    </mat-nav-list>
+</div>

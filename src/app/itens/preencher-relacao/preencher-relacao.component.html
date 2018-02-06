@@ -1,0 +1,54 @@
+<mat-toolbar class="barra-back">
+  <button mat-icon-button routerLink="/listarFolhas" class="esquerda" color="primary">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="preenchimento-grosso"></div>
+
+<div class="barra-pesquisa">
+  <mat-form-field class="filtroBusca">
+    <input matInput placeholder="Filtrar pelo nome" #busca (keyup.enter)="atualizarVisiveis(busca.value)" [(ngModel)]="filtro"
+    />
+    <button mat-button *ngIf="busca.value" matSuffix mat-icon-button aria-label="Clear" (click)="busca.value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <button mat-raised-button (click)="atualizarVisiveis(busca.value)" color="primary" class="sideButton">Filtrar</button>
+</div>
+
+<mat-spinner diameter="40" *ngIf="carregando"></mat-spinner>
+<div *ngIf="!carregando">
+  <div *ngFor="let item of visiveis">
+    <div class="itemR">
+      
+      <button mat-icon-button (click)="subtrair(campo, item.id)" class="remove-button">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+      <input type="number" #campo (keyup.enter)="somar(campo, item.id)" class="campo-quantidade"/>
+      <button mat-icon-button (click)="somar(campo, item.id)" class="add-button">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+
+      <div class="linha-qtd-nome">
+      <div class="quantidade">{{item.quantidade}}</div>
+      <div class="nome">{{item.nome | limitString: 35}}</div>
+    </div>
+
+      <button mat-icon-button (click)="editarItem(item.id)" class="edit-button">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="preenchimento"></div>
+  </div>
+
+</div>
+
+<div class="preenchimento-grosso"></div>
+
+<mat-toolbar class="footer">
+  <button mat-icon-button (click)="adicionarItem()" color="primary" class="right">Adicionar Item
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</mat-toolbar>

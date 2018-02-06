@@ -8,7 +8,10 @@
 
 <div class="barra-pesquisa">
   <mat-form-field class="filtroBusca">
-    <input matInput placeholder="Filtrar pelo nome" #busca (keyup.enter)="atualizarVisiveis(busca.value)" />
+    <input matInput placeholder="Filtrar pelo nome" #busca (keyup.enter)="atualizarVisiveis(busca.value)" [(ngModel)]="filtro"/>
+    <button mat-button *ngIf="busca.value" matSuffix mat-icon-button aria-label="Clear" (click)="busca.value=''">
+        <mat-icon>close</mat-icon>
+      </button>
   </mat-form-field>
   <button mat-raised-button (click)="atualizarVisiveis(busca.value)" color="primary" class="sideButton">Filtrar</button>
 </div>
@@ -23,7 +26,7 @@
       <div class="imagem">
         <img *ngIf="pessoa.tem_foto == 'true'" src="{{config.apiBaseUrl}}/img/{{pessoa.id}}_64.jpg" alt="{{pessoa.nome}}" (click)="showModal(pessoa.id, pessoa.nome)">
         <img *ngIf="pessoa.tem_foto == 'false'" src="{{config.apiBaseUrl}}/img/sem_foto_64.jpg" alt="{{pessoa.nome}}">
-      </div>
+      </div> 
 
       <div class="nome">
         {{pessoa.nome | limitString: 35}}

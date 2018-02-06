@@ -12,45 +12,45 @@ class AdicionarPessoa extends Rest
 	{
 		return "Adiciona uma nova pessoa e a retorna.";
 	}
-	
+
 	function getUrlParametersDescription()
 	{
 		return array();
 	}
-	
+
 	function getRequestExample()
 	{
 		return array();
 	}
-	
+
 	function getResponseExample()
 	{
 		return array
 		(
 			"type"=>"success",
 			"msg"=>"",
-			"pessoa"=>array("id"=>"1","nome"=>"Nova Pessoa","dt_nascimento"=>"2018-02-03","nome_mae"=>"","atualizado"=>"false","tem_foto"=>"false")
+			"pessoa"=>array("id"=>"1","nome"=>"Nova Pessoa","dt_nascimento"=>"","nome_mae"=>"","atualizado"=>"false","tem_foto"=>"false")
 		);
 	}
-	
+
 	function getRestrictions()
 	{
 		return "Usuário logado";
 	}
-	
-	function call($request,$urlParameters) 
+
+	function call($request,$urlParameters)
 	{
 		Auth::checkLogin("any");
-		
+
 		$connection = mysqli_connect(DBSERVER, DBUSER, DBPASSWORD, DATABASE);
 		if(!$connection)
 			return DetalharPessoa::errorResponse("Erro de acesso ao banco de dados.");
 
-		$query = 
+		$query =
 		"
-			insert into 
+			insert into
 				pessoa (nome, atualizado, tem_foto, dt_nascimento)
-				values ('Nova Pessoa', 'false', 'false', CURDATE() )			
+				values ('Nova Pessoa', 'false', 'false', '' )
 		";
 		$result = mysqli_query($connection, $query);
 		if(!$result)
@@ -58,22 +58,22 @@ class AdicionarPessoa extends Rest
 		else
 		{
 			$id = mysqli_insert_id($connection);
-			$query = 
+			$query =
 			"
-				select 
-					pessoa.* 
-				from 
+				select
+					pessoa.*
+				from
 					pessoa
-				where 
-					pessoa.id = '".$id."'			
+				where
+					pessoa.id = '".$id."'
 			";
 			$result = mysqli_query($connection, $query);
 			if(!$result)
 				return DetalharPessoa::errorResponse("Erro ao executar consulta no banco.");
-			
+
 			if($pessoa = mysqli_fetch_assoc($result))
 			{
-				$responseJson = 
+				$responseJson =
 				array
 				(
 					"type"=>"success",
@@ -86,10 +86,10 @@ class AdicionarPessoa extends Rest
 				return DetalharPessoa::errorResponse("Não foi possível recuperar a pessoa criada.");
 		}
 	}
-	
+
 	static function errorResponse($message)
 	{
-		$responseJson = 
+		$responseJson =
 		array
 		(
 			"type"=>"error",

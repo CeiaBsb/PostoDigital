@@ -2,12 +2,12 @@
 require_once('./Rest.php');
 require_once("./configuration.php");
 
-if(ALLOW_CORS) 
+if(ALLOW_CORS)
 {
 	header("Access-Control-Allow-Origin: ".CORS_ORIGIN);
 	header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
 	header("Access-Control-Allow-Headers: Content-Type, JWT, enctype");
-	
+
 	/*esse trecho é necessário porque para certas requisicoes o frontend as vezes
 	manda duas request, sendo a primeira somente para verificar as permissoes.
 	quando o header HTTP_ACCESS_CONTROL_REQUEST_HEADERS é passado, significa que o frontend
@@ -19,6 +19,7 @@ Rest::setBaseUri(BASE_URL);
 
 Rest::addRoute("POST","/login",'./login.service.php',"LoginService");
 Rest::addRoute("GET","/campanha/listarMinhas",'./campanha/listarMinhasCampanhas.service.php',"ListarMinhasCampanhas");
+Rest::addRoute("GET","/campanha/listarDataAcompanhamentos",'./campanha/listarDataAcompanhamentos.service.php',"ListarDataAcompanhamentos");
 Rest::addRoute("POST","/campanha/listar",'./campanha/listarCampanhas.service.php',"ListarCampanhas");
 Rest::addRoute("GET","/campanha/detalhar",'./campanha/detalharCampanha.service.php',"DetalharCampanha");
 Rest::addRoute("GET","/campanha/excluir",'./campanha/excluirCampanha.service.php',"ExcluirCampanha");
@@ -41,6 +42,15 @@ Rest::addRoute("POST","/pessoa/atualizarFolhasPresenca",'./pessoa/atualizarFolha
 Rest::addRoute("POST","/frequencia/registrarPresenca",'./frequencia/registrarPresenca.service.php',"RegistrarPresenca");
 Rest::addRoute("GET","/frequencia/listarFolhas",'./frequencia/listarFolhas.service.php',"ListarFolhas");
 Rest::addRoute("POST","/frequencia/pessoasFrequencia",'./frequencia/listarPessoasDaListaFrequencia.service.php',"listarPessoasDaListaFrequencia");
+Rest::addRoute("POST","/frequencia/resumirFolhaNaData",'./frequencia/resumirFolhaNaData.service.php',"ResumirFolhaNaData");
+Rest::addRoute("GET","/itens/listarRelacoesItens",'./itens/listarRelacoesItens.service.php',"ListarRelacoesItens");
+Rest::addRoute("POST","/itens/itensRelacao",'./itens/listarItensParaMarcacao.service.php',"ListarItensParaMarcacao");
+Rest::addRoute("POST","/itens/registrarQuantidade",'./itens/registrarQuantidade.service.php',"RegistrarQuantidade");
+Rest::addRoute("GET","/itens/adicionar",'./itens/adicionarItem.service.php',"AdicionarItem");
+Rest::addRoute("POST","/itens/atualizar",'./itens/atualizarItem.service.php',"AtualizarItem");
+Rest::addRoute("GET","/itens/detalhar",'./itens/detalharItem.service.php',"DetalharItem");
+Rest::addRoute("GET","/itens/excluir",'./itens/excluirItem.service.php',"ExcluirItem");
+Rest::addRoute("POST","/itens/resumirItensNaData",'./itens/resumirRelacaoDeItensNaData.service.php',"ResumirRelacaoDeItensNaData");
 Rest::addRoute("POST","/upload",'./upload.php',"Upload");
 Rest::not_found();
 ?>

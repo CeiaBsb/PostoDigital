@@ -1,0 +1,22 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="atualizarItem()" class="esquerda" color="primary">
+      <mat-icon>check</mat-icon>
+  </button>
+  <div class="direita">
+      <button mat-icon-button (click)="cancelar()" color="primary">
+          <mat-icon>undo</mat-icon>
+      </button>
+      <button mat-icon-button (click)="excluirItem()" color="primary">
+          <mat-icon>delete</mat-icon>
+      </button>
+  </div>
+</mat-toolbar>
+
+<div class="preenchimento"></div>
+<mat-spinner diameter="40" *ngIf="!carregado"></mat-spinner>
+<div *ngIf="carregado">
+  <mat-form-field class="full-width">
+      <input matInput placeholder="nome" [(ngModel)]="item.nome" />
+  </mat-form-field>
+  <div class="preenchimento"></div>
+</div>

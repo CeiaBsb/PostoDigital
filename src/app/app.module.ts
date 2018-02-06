@@ -1,3 +1,4 @@
+import { PreencherRelacaoComponent } from './itens/preencher-relacao/preencher-relacao.component';
 import { PtBrDateAdapter } from './ptBrDateAdapter';
 import { ModalFotoComponent } from './campanha/minhasCampanhas/acompanhamento/modal-foto/modal-foto.component';
 import { FrequenciaService } from './frequencia/frequencia.service';
@@ -36,6 +37,8 @@ import { MarcarFrequenciaComponent } from './campanha/minhasCampanhas/acompanham
 import { IniciarAcompanhamentoComponent } from './campanha/minhasCampanhas/acompanhamento/iniciar-acompanhamento.component';
 import { LimitStringPipe } from './limit-string.pipe';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
+import { ItensService } from './itens/itens.service';
+import { DetalharItemComponent } from './itens/detalhar-item/detalhar-item.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,9 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
     MarcarFrequenciaComponent,
     IniciarAcompanhamentoComponent,
     ModalFotoComponent,
-    LimitStringPipe
+    LimitStringPipe, 
+    PreencherRelacaoComponent,
+    DetalharItemComponent
 ],
   imports: [
     BrowserModule,
@@ -73,6 +78,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
     UtilService,
     RegistrarCampanhaService,
     FrequenciaService,
+    ItensService,
     ModalFotoComponent,
     Document,
     {

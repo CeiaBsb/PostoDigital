@@ -77,14 +77,14 @@
     top: 112px;
     width: 100%;
     background-color: white;
-    z-index: 10;
+    z-index: 2;
 } 
 
 .barra-back {
     position: fixed;
-    top: 63px;
+    top: 56px;
     width: 100%;
-    z-index: 10;
+    z-index: 2;
 }
 
 .preenchimento-grosso {

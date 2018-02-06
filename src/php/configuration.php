@@ -10,6 +10,7 @@ if(!defined("CONFIGURATION"))
 
 		//error_reporting(error_reporting() & (-1 ^ E_DEPRECATED));
 		error_reporting(E_ERROR);
+		//error_reporting(E_ALL);
 
 		define("ALLOW_CORS", true);
 		define("CORS_ORIGIN", "http://ceia.eu3.org");

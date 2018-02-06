@@ -1,8 +1,18 @@
 import { DateAdapter, NativeDateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
+import { ConfigurationService } from './configuration.service';
 
 export class PtBrDateAdapter extends NativeDateAdapter {
 
+  constructor (private config: ConfigurationService) {
+    super('pt-BR');
+  }
+
   format(date: Date, displayFormat: Object): string {
+
+    if (!(date instanceof Date)) {
+      date = new Date(date);
+    }
+
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();

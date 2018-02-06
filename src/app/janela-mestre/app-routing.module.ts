@@ -1,3 +1,4 @@
+import { DetalharItemComponent } from './../itens/detalhar-item/detalhar-item.component';
 import { ListarFolhasComponent } from './../campanha/minhasCampanhas/acompanhamento/listar-folhas/listar-folhas.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,6 +16,8 @@ import { DetalharUsuarioComponent } from './../usuario/detalhar-usuario/detalhar
 import { DetalharPessoaComponent } from '../pessoa/detalhar-pessoa/detalhar-pessoa.component';
 import { MarcarFrequenciaComponent } from '../campanha/minhasCampanhas/acompanhamento/marcar-frequencia/marcar-frequencia.component';
 import { IniciarAcompanhamentoComponent } from '../campanha/minhasCampanhas/acompanhamento/iniciar-acompanhamento.component';
+import { ModalConfimacaoComponent } from './modal-confimacao/modal-confimacao.component';
+import { PreencherRelacaoComponent } from '../itens/preencher-relacao/preencher-relacao.component';
 
 const routes: Routes = [
   {path: 'minhasCampanhas', component: MinhasCampanhasComponent },
@@ -25,11 +28,14 @@ const routes: Routes = [
   {path: 'listaPessoas', component: ListaPessoasComponent },
   {path: 'detalharUsuario/:id', component: DetalharUsuarioComponent },
   {path: 'detalharPessoa/:id', component: DetalharPessoaComponent },
+  {path: 'detalharItem/:id', component: DetalharItemComponent },
   {path: 'detalharPessoa/:id/:freqId', component: DetalharPessoaComponent },
   {path: 'informarData/:id', component: InformarDataComponent },
   {path: 'listarFolhas', component: ListarFolhasComponent },
   {path: 'iniciarAcompanhamento/:id', component: IniciarAcompanhamentoComponent },
   {path: 'preencherFrequencia/:id', component: MarcarFrequenciaComponent },
+  {path: 'preencherRelacao/:id', component: PreencherRelacaoComponent
+ },
   {path: '', redirectTo: '/minhasCampanhas', pathMatch: 'full'}
 ];
 

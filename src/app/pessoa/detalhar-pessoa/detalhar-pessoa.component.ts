@@ -1,3 +1,5 @@
+import { RegistrarCampanhaService } from './../../campanha/minhasCampanhas/acompanhamento/registrarCampanha.service';
+import { FrequenciaService } from './../../frequencia/frequencia.service';
 import { PessoaService } from './../pessoa.service';
 import { Component, OnInit } from '@angular/core';
 import { Pessoa } from '../pessoa';
@@ -6,6 +8,7 @@ import { ModalErroComponent } from '../../janela-mestre/modal-erro/modal-erro.co
 import { Router } from '@angular/router';
 import { ConfigurationService } from '../../configuration.service';
 import { ModalProcessandoComponent } from '../../janela-mestre/modal-processando/modal-processando.component';
+import { ModalConfimacaoComponent } from '../../janela-mestre/modal-confimacao/modal-confimacao.component';
 
 @Component({
   selector: 'app-detalhar-pessoa',
@@ -19,7 +22,8 @@ export class DetalharPessoaComponent implements OnInit {
   confirmarSenha: string;
   folhasRelacionadas: any;
   idFrequenciaBack: string;
- 
+  now = new Date();
+
   constructor
     (
     private pessoaService: PessoaService,
@@ -27,7 +31,10 @@ export class DetalharPessoaComponent implements OnInit {
     private modalErro: ModalErroComponent,
     private router: Router,
     private config: ConfigurationService,
-    private modalProcessando: ModalProcessandoComponent
+    private frequenciaService: FrequenciaService,
+    private dataService: RegistrarCampanhaService,
+    private modalProcessando: ModalProcessandoComponent,
+    private modalConfirmacao: ModalConfimacaoComponent
     ) { }
 
   ngOnInit() {
@@ -67,41 +74,47 @@ export class DetalharPessoaComponent implements OnInit {
       }
       );
   }
-  
-    listarFolhas(id: string) {
-      this.pessoaService.listarFolhasPresenca(id)
-        .subscribe(        
-          retorno => {
-            this.folhasRelacionadas = retorno.folhas;
-          }
-        );
-    }
-  
-    atualizarFolhas(id: number) {
-      this.pessoaService.atualizarFolhasPresenca(String(id), this.folhasRelacionadas)
-        .subscribe(        
-          retorno => {
-          }
-        );
-    } 
 
-  excluirPessoa() {
-    this.modalProcessando.mostrarModal();
-    this.pessoaService.excluirPessoa(String(this.pessoa.id))
+  listarFolhas(id: string) {
+    this.pessoaService.listarFolhasPresenca(id)
       .subscribe(
       retorno => {
-        this.modalProcessando.fecharModal();
-        if (retorno.type === 'error') {
-          this.modalErro.mostrarModal(retorno.msg);
-        } else {
-          if (this.idFrequenciaBack == null) {
-            this.router.navigate(['listaPessoas']);
-          } else {
-            this.router.navigate(['preencherFrequencia/' + this.idFrequenciaBack]);
-          }
-        }
+        this.folhasRelacionadas = retorno.folhas;
       }
       );
+  }
+
+  atualizarFolhas(id: number) {
+    this.pessoaService.atualizarFolhasPresenca(String(id), this.folhasRelacionadas)
+      .subscribe(
+      retorno => {
+      }
+      );
+  }
+
+  excluirPessoa() {
+    this.modalConfirmacao.mostrarModal('Isso irá excluir a pessoa em todas as listas. Deseja prosseguir?').subscribe(
+      resposta => {
+        if (resposta === true) {
+          this.modalProcessando.mostrarModal();
+          this.pessoaService.excluirPessoa(String(this.pessoa.id))
+            .subscribe(
+            retorno => {
+              this.modalProcessando.fecharModal();
+              if (retorno.type === 'error') {
+                this.modalErro.mostrarModal(retorno.msg);
+              } else {
+                if (this.idFrequenciaBack == null) {
+                  this.router.navigate(['listaPessoas']);
+                } else {
+                  this.router.navigate(['preencherFrequencia/' + this.idFrequenciaBack]);
+                }
+              }
+            }
+            );
+        }
+      }
+    );
   }
 
   atualizarPessoa() {
@@ -110,14 +123,29 @@ export class DetalharPessoaComponent implements OnInit {
     this.pessoaService.atualizarPessoa(this.pessoa)
       .subscribe(
       retorno => {
-        this.modalProcessando.fecharModal();
         if (retorno.type === 'error') {
+          this.modalProcessando.fecharModal();
           this.modalErro.mostrarModal(retorno.msg);
         } else {
           if (this.idFrequenciaBack == null) {
             this.router.navigate(['listaPessoas']);
           } else {
-            this.router.navigate(['preencherFrequencia/' + this.idFrequenciaBack]);
+            this.modalConfirmacao.mostrarModal('Deseja que essa pessoa já seja atualizada recebendo presença na lista?').subscribe(
+              resposta => {
+                if (resposta === true) {
+                  this.frequenciaService.marcarPresenca(String(this.pessoa.id), this.idFrequenciaBack,
+                    this.dataService.data, true).subscribe(
+                    r => {
+                      this.router.navigate(['preencherFrequencia/' + this.idFrequenciaBack]);
+                      this.modalProcessando.fecharModal();
+                    }
+                    );
+                } else {
+                  this.router.navigate(['preencherFrequencia/' + this.idFrequenciaBack]);
+                  this.modalProcessando.fecharModal();
+                }
+              }
+            );
           }
         }
       }

@@ -30,7 +30,7 @@
   <div class="preenchimento"></div>
 
   <mat-form-field class="full-width">
-    <input matInput [matDatepicker]="picker" placeholder="Data de nascimento" [(ngModel)]="pessoa.dt_nascimento">
+    <input matInput [matDatepicker]="picker" placeholder="Data de nascimento" [(ngModel)]="pessoa.dt_nascimento" [max]="now">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker touchUi="true" #picker></mat-datepicker>
   </mat-form-field>

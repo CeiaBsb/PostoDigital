@@ -1,9 +1,13 @@
 - mensagens de confirmação antes de apagar itens importantes
 - na ordem alfabética ítala está antes de bruna
  (já vi que esse ordenamento vem do banco)
-- a barra de voltar está mal colocada no celular, mas está ok no computador.
-- a data de nascimento deve ser menor que hoje
-- trocar favicon
 - fixar as barras de ação dentro das telas de detalhamento
+- fazer a tela de resumo do acompanhamento da campanha
+- ao fazer uma pesquisa, já limpar o termo pesquisado.
+- ao digitar uma quantidade na lista de itens, usar o separador de decimal como vírgula
+- na lista de itens, ordenar do último atualizado para os não atualizados
 
-republicar arquivos php
+- botão para limpar filtro em todas as telas de pesquisa
+- nas barras de pesquisa, manter o tamanho do botão de filtro, mesmo ao redimensionar a tela
+- ao expandir as fotos das pessoas, fazer com que ela se ajuste à tela do aparelho
+- ajustar o google analytics para que ele reconheça as trocas internas de página 

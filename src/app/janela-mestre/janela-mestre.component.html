@@ -15,7 +15,7 @@
         <a mat-list-item class="segundo-nivel" routerLink="/listaCampanhas"  (click)="snav.close()" *ngIf="auth.checarPerfil('administrador')">Campanha</a>
         <a mat-list-item class="segundo-nivel" routerLink="/listaPessoas"  (click)="snav.close()">Pessoa</a>
         <a mat-list-item class="segundo-nivel" routerLink="/listaUsuarios"  (click)="snav.close()" *ngIf="auth.checarPerfil('administrador')">Usuário</a>
-        <a mat-list-item routerLink=".">Perfil</a>
+        <!-- <a mat-list-item routerLink=".">Perfil</a> -->
         <a mat-list-item routerLink="/" (click)="auth.logout()">Sair</a>
       </mat-nav-list>
     </mat-sidenav>
